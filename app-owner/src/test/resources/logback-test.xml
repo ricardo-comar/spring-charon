@@ -1,0 +1,6 @@
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/base.xml" />
+	<root level="ERROR"/>
+	<logger name="com.github.ricardocomar" level="DEBUG"/>
+	<logger name="org.springframework" level="warn"/>
+</configuration>
