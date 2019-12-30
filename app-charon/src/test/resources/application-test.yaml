@@ -10,10 +10,10 @@ spring:
     properties:
       schema.registry.namespaces: com.github.ricardocomar.springbootetl.model
     consumer:
-      value-deserializer: com.github.ricardocomar.springbootetl.etlconsumer.config.CustomKafkaAvroDeserializer
+      value-deserializer: com.github.ricardocomar.springcharon.appcharon.config.CustomKafkaAvroDeserializer
       bootstrap-servers: ${spring.embedded.kafka.brokers} 
     producer:
-      value-serializer: com.github.ricardocomar.springbootetl.etlconsumer.config.CustomKafkaAvroSerializer
+      value-serializer: com.github.ricardocomar.springcharon.appcharon.config.CustomKafkaAvroSerializer
       bootstrap-servers: ${spring.embedded.kafka.brokers}
 
 # Embedded ActiveMQ Configuration Example

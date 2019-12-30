@@ -68,7 +68,7 @@ spring:
     producer:
       properties:
         interceptor:
-          classes: com.github.ricardocomar.springbootetl.etlconsumer.config.KafkaMessageInterceptor
+          classes: com.github.ricardocomar.springcharon.appcharon.config.KafkaMessageInterceptor
       bootstrap-servers: kafka-1:19092,kafka-2:29092,kafka-3:39092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
