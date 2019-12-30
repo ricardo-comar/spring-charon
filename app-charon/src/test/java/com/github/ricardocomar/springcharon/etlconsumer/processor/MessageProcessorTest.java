@@ -15,7 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.github.ricardocomar.springbootetl.model.TeamAvro;
+import com.github.ricardocomar.springbootetl.model.PurchaseAvro;
 import com.github.ricardocomar.springcharon.appcharon.consumer.model.RequestMessage;
 import com.github.ricardocomar.springcharon.appcharon.processor.MessageProcessor;
 import com.github.ricardocomar.springcharon.appcharon.producer.ReturnProducer;
@@ -47,10 +47,10 @@ public class MessageProcessorTest {
 	public void testValid() throws Exception {
 
 		final String requestId = UUID.randomUUID().toString();
-		final TeamAvro team = Fixture.from(TeamAvro.class).gimme("valid");
+		final PurchaseAvro purchase = Fixture.from(PurchaseAvro.class).gimme("valid");
 
 		Mockito.doAnswer((Answer<?>) invocation -> {
-			assertEquals(team, invocation.getArgument(0));
+			assertEquals(purchase, invocation.getArgument(0));
 			assertEquals(requestId, invocation.getArgument(1));
 			return null;
 		}).when(mockProducer).sendMessage(Mockito.any(GenericRecord.class), Mockito.anyString());

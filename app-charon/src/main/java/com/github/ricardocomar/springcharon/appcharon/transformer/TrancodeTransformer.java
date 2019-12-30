@@ -2,6 +2,7 @@ package com.github.ricardocomar.springcharon.appcharon.transformer;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,8 +18,8 @@ import org.springframework.stereotype.Component;
 
 import com.github.ricardocomar.springcharon.appcharon.model.ConsumerModel;
 import com.github.ricardocomar.springcharon.appcharon.model.Purchase;
-import com.github.ricardocomar.springcharon.appcharon.model.Team;
 import com.github.ricardocomar.springcharon.appcharon.transformer.handler.BigDecimalPositionalTypeHandler;
+import com.github.ricardocomar.springcharon.appcharon.transformer.handler.LocalDateTimeTypeHandler;
 import com.github.ricardocomar.springcharon.appcharon.transformer.handler.LocalDateTypeHandler;
 
 @Component
@@ -31,13 +32,14 @@ public class TrancodeTransformer {
 			.synchronizedMap(new HashMap<>());
 
 	public TrancodeTransformer() {
-		initMappers("TRANTEAM-1", Team.class);
 		initMappers("TRANPURC-1", Purchase.class);
 	}
 
 	private void initMappers(final String transaction, final Class<? extends ConsumerModel> modelClass) {
 		final StreamBuilder builder = new StreamBuilder(transaction).format("fixedlength")
 				.addTypeHandler(LocalDate.class, LocalDateTypeHandler.builder().format("yyyyMMdd").build())
+				.addTypeHandler(LocalDateTime.class,
+						LocalDateTimeTypeHandler.builder().format("yyyyMMdd-HHmmssSSSSS").build())
 				.addTypeHandler(BigDecimal.class,
 						BigDecimalPositionalTypeHandler.builder().precision(8).scale(2).build())
 				.parser(new FixedLengthParserBuilder()).addRecord(modelClass);

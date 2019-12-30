@@ -1,6 +1,6 @@
 package com.github.ricardocomar.springcharon.etlconsumer.fixture;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
@@ -11,15 +11,15 @@ import br.com.six2six.fixturefactory.Rule;
 import br.com.six2six.fixturefactory.loader.TemplateLoader;
 
 public class RequestMessageFixture implements TemplateLoader {
-	private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("ddMMyyyy");
+	private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmssSSSSS");
 
 	@Override
 	public void load() {
 		Fixture.of(RequestMessage.class).addTemplate("team", new Rule() {
 			{
-				final String hire1 = LocalDate.now().minusYears(10).format(TIME_FORMATTER);
-				final String hire2 = LocalDate.now().minusYears(5).format(TIME_FORMATTER);
-				final String hire3 = LocalDate.now().minusYears(4).format(TIME_FORMATTER);
+				final String hire1 = LocalDateTime.now().minusYears(10).format(TIME_FORMATTER);
+				final String hire2 = LocalDateTime.now().minusYears(5).format(TIME_FORMATTER);
+				final String hire3 = LocalDateTime.now().minusYears(4).format(TIME_FORMATTER);
 				add("id", UUID.randomUUID().toString());
 				add("origin", "TestSuite");
 				add("trancode",
@@ -31,7 +31,7 @@ public class RequestMessageFixture implements TemplateLoader {
 		});
 		Fixture.of(RequestMessage.class).addTemplate("purchase", new Rule() {
 			{
-				final String date = LocalDate.now().minusDays(10).format(TIME_FORMATTER);
+				final String date = LocalDateTime.now().minusDays(10).format(TIME_FORMATTER);
 				add("id", UUID.randomUUID().toString());
 				add("origin", "TestSuite");
 				add("trancode",

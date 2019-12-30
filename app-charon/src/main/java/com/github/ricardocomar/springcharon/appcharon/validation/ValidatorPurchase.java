@@ -8,7 +8,7 @@ import static br.com.fluentvalidator.predicate.StringPredicate.stringEmptyOrNull
 import static br.com.fluentvalidator.predicate.StringPredicate.stringMatches;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,7 @@ public class ValidatorPurchase extends AbstractValidator<Purchase> {
 				.critical(ETLValidationException.class);
 
 		ruleFor("date", Purchase::getDate).must(not(nullValue())).withMessage("date is mandatory")
-				.must(lessThanOrEqual(LocalDate.now())).withMessage("date must be in the past")
+				.must(lessThanOrEqual(LocalDateTime.now())).withMessage("date must be in the past")
 				.critical(ETLValidationException.class);
 
 		ruleFor("items", Purchase::getItems).must(between(Collection::size, 0, 6))
@@ -61,9 +61,5 @@ public class ValidatorPurchase extends AbstractValidator<Purchase> {
 				.withMessage("totalValue must be the sum of items values")
 				.critical(ETLValidationException.class);
 	}
-//
-//	private static Predicate<Purchase> isTotalValueValid() {
-//		return PredicateBuilder.<Purchase>from(not(nullValue())).and());
-//	}
 
 }

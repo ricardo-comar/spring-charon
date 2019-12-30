@@ -14,9 +14,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.github.ricardocomar.springcharon.appcharon.model.ConsumerModel;
 import com.github.ricardocomar.springcharon.appcharon.model.Purchase;
-import com.github.ricardocomar.springcharon.appcharon.model.Team;
 import com.github.ricardocomar.springcharon.appcharon.transformer.AvroTransformer;
-import com.github.ricardocomar.springcharon.etlconsumer.fixture.TeamModelFixture;
+import com.github.ricardocomar.springcharon.etlconsumer.fixture.PurchaseModelFixture;
 import com.github.ricardocomar.springcharon.etlconsumer.mapper.MapperSpringConfig;
 
 import br.com.six2six.fixturefactory.Fixture;
@@ -31,20 +30,7 @@ public class AvroTransformerTest {
 
 	@BeforeClass
 	public static void setUp() {
-		FixtureFactoryLoader.loadTemplates(TeamModelFixture.class.getPackage().getName());
-	}
-
-	@Test
-	public void testValidTeam() throws Exception {
-		
-		final Team trancodeTeam = Fixture.from(Team.class).gimme("valid");
-
-		final GenericRecord avro = transformer.from(trancodeTeam);
-		assertThat(avro, notNullValue());
-
-		final ConsumerModel newTrancode = transformer.to(avro);
-
-		assertThat(newTrancode, equalTo(trancodeTeam));
+		FixtureFactoryLoader.loadTemplates(PurchaseModelFixture.class.getPackage().getName());
 	}
 
 	@Test

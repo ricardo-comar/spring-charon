@@ -1,7 +1,7 @@
 package com.github.ricardocomar.springcharon.etlconsumer.validation;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import org.junit.Before;
@@ -82,7 +82,7 @@ public class ModelPurchaseValidationTest {
 
 	@Test(expected = ValidationException.class)
 	public void testInvalidDate() throws Exception {
-		purchase.setDate(LocalDate.now().plusDays(1));
+		purchase.setDate(LocalDateTime.now().plusDays(1));
 		validator.validate(purchase);
 	}
 

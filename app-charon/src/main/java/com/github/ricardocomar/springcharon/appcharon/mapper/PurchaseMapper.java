@@ -13,12 +13,12 @@ public abstract class PurchaseMapper implements ConsumerAvroMapper<PurchaseAvro>
 
 	@Override
 	@Mappings({
-			@Mapping(target = "date", expression = "java(model.getDate().format(java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd\")))") })
+			@Mapping(target = "date", expression = "java(model.getDate().format(java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss.SSSSS\")))") })
 	public abstract PurchaseAvro fromModel(Purchase model);
 
 	@InheritInverseConfiguration
 	@Mappings({
-			@Mapping(target = "date", expression = "java(java.time.LocalDate.parse(avro.getDate(), java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd\")))") })
+			@Mapping(target = "date", expression = "java(java.time.LocalDateTime.parse(avro.getDate(), java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss.SSSSS\")))") })
 	@Override
 	public abstract Purchase fromAvro(PurchaseAvro avro);
 }

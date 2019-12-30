@@ -14,9 +14,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.github.ricardocomar.springcharon.appcharon.model.ConsumerModel;
 import com.github.ricardocomar.springcharon.appcharon.model.Purchase;
-import com.github.ricardocomar.springcharon.appcharon.model.Team;
 import com.github.ricardocomar.springcharon.appcharon.transformer.TrancodeTransformer;
-import com.github.ricardocomar.springcharon.etlconsumer.fixture.TeamModelFixture;
+import com.github.ricardocomar.springcharon.etlconsumer.fixture.PurchaseModelFixture;
 
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
@@ -30,20 +29,7 @@ public class TrancodeTransformerTest {
 
 	@BeforeClass
 	public static void setUp() {
-		FixtureFactoryLoader.loadTemplates(TeamModelFixture.class.getPackage().getName());
-	}
-
-	@Test
-	public void testValidTeam() throws Exception {
-
-		final Team trancodeTeam = Fixture.from(Team.class).gimme("valid");
-
-		final String trancode = transformer.to(trancodeTeam);
-		assertThat(trancode, not(isEmptyOrNullString()));
-
-		final ConsumerModel newModel = transformer.fromTrancode(trancode);
-
-		assertThat(newModel, equalTo(trancodeTeam));
+		FixtureFactoryLoader.loadTemplates(PurchaseModelFixture.class.getPackage().getName());
 	}
 
 	@Test

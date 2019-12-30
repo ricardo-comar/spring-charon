@@ -30,11 +30,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.github.ricardocomar.springbootetl.model.PurchaseAvro;
-import com.github.ricardocomar.springbootetl.model.TeamAvro;
 import com.github.ricardocomar.springcharon.appcharon.CharonApplication;
 import com.github.ricardocomar.springcharon.appcharon.config.AppProperties;
 import com.github.ricardocomar.springcharon.appcharon.consumer.model.RequestMessage;
-import com.github.ricardocomar.springcharon.etlconsumer.fixture.TeamModelFixture;
+import com.github.ricardocomar.springcharon.etlconsumer.fixture.PurchaseModelFixture;
 
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
@@ -50,7 +49,7 @@ public class ApplicationTest {
 
 	@BeforeClass
 	public static void setUp() {
-		FixtureFactoryLoader.loadTemplates(TeamModelFixture.class.getPackage().getName());
+		FixtureFactoryLoader.loadTemplates(PurchaseModelFixture.class.getPackage().getName());
 	}
 
 	@Autowired
@@ -80,13 +79,6 @@ public class ApplicationTest {
 	}
 
 	@Test
-	public void simpleTeamMessage() {
-		expectedResponse = Fixture.from(TeamAvro.class).gimme("valid");
-
-		sendAndWait(Fixture.from(RequestMessage.class).gimme("team"), requestId);
-	}
-
-	@Test
 	public void simplePurchaseMessage() {
 		expectedResponse = Fixture.from(PurchaseAvro.class).gimme("valid");
 
@@ -112,7 +104,7 @@ public class ApplicationTest {
 
 	@Bean
 	@KafkaListener(topics = "topicOutbound", groupId = "test-${random.value}")
-	public void consumeResponse(@Payload final TeamAvro message,
+	public void consumeResponse(@Payload final GenericRecord message,
 			@Header(AppProperties.HEADER_REQUEST_ID) final String requestId) throws Exception {
 
 		RESPONSE_AVRO = message;
