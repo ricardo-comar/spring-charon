@@ -16,11 +16,18 @@ public class LocalDateTimeTypeHandler implements TypeHandler, ConfigurableTypeHa
 
 	@Override
 	public Object parse(final String text) {
+		if (text == null) {
+			return null;
+		}
+
 		return LocalDateTime.parse(text, DateTimeFormatter.ofPattern(format));
 	}
 
 	@Override
 	public String format(final Object value) {
+		if (value == null) {
+			return null;
+		}
 		return ((LocalDateTime) value).format(DateTimeFormatter.ofPattern(format));
 	}
 
