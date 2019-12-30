@@ -13,7 +13,7 @@ etl-producer:
       connect-timeout: 500
 
 server:
-  port: 0
+  port: 8080
 
 management:
   endpoint:
@@ -41,14 +41,25 @@ eureka:
 
 
 spring:
+  application:
+    name: app-owner
   main:
     banner-mode: "off"
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/spring-charon
     username: user
     password: password
     initialization-mode: always
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL8Dialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect   
+
   cloud:
     discovery:
       enabled: true
@@ -60,13 +71,13 @@ spring:
           include-description: true
     config:
       enabled: false
-  application:
-    name: app-owner
+
   activemq:
     user: admin
     password: password
     in-memory: false
     broker-url: tcp://localhost:61616
+
   kafka:
     properties:
       schema.registry.url: http://localhost:8081  

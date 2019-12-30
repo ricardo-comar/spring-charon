@@ -14,12 +14,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
+@Entity(name = "purchase")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,8 +29,10 @@ import lombok.NoArgsConstructor;
 public class PurchaseEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String id;
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+	@GenericGenerator(name = "native", strategy = "native")
+	@Column(name = "id", updatable = false, nullable = false)
+	private Long id;
 
 	@Column(nullable = false)
 	private String customer;
@@ -46,7 +50,7 @@ public class PurchaseEntity {
 	@Column(nullable = false)
 	private LocalDateTime date;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<PurchaseItemEntity> items;
 
 	public enum PurchaseStatus {

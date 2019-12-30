@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import com.github.ricardocomar.springcharon.appowner.config.AppProperties;
 import com.github.ricardocomar.springcharon.appowner.repository.SyncControlRepository;
 import com.github.ricardocomar.springcharon.appowner.repository.entity.SyncControlEntity;
-import com.github.ricardocomar.springcharon.appowner.repository.entity.SyncState;
+import com.github.ricardocomar.springcharon.appowner.repository.entity.SyncControlEntity.SyncState;
 
 @Component
 public class AckConsumer {

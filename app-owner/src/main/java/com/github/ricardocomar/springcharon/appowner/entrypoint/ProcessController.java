@@ -34,8 +34,9 @@ public class ProcessController {
 			return ResponseEntity.noContent().build();
 
 		} catch (final Exception e) {
+			LOGGER.error("Error handling purchase", e);
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.body("{ \"error\": \"" + e.getMessage() + "\"");
+					.body("{ \"error\": \"" + e.getMessage() + "\" }");
 		}
 
 	}
@@ -52,8 +53,9 @@ public class ProcessController {
 			return ResponseEntity.noContent().build();
 
 		} catch (final Exception e) {
+			LOGGER.error("Error handling purchase item", e);
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.body("{ \"error\": \"" + e.getMessage() + "\"");
+					.body("{ \"error\": \"" + e.getMessage() + "\" }");
 		}
 
 	}

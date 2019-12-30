@@ -1,7 +1,6 @@
 package com.github.ricardocomar.springcharon.appowner.entrypoint.model;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.Builder;
 import lombok.Data;
@@ -12,9 +11,8 @@ public class PurchaseRequest {
 
 	private String id;
 	private String customer;
-	private BigDecimal totalValue;
 	private String status;
-	private LocalDate date;
+	private LocalDateTime date;
 
 	private Integer waitMin;
 	private Integer waitMax;

@@ -27,6 +27,11 @@ public class BigDecimalPositionalTypeHandler implements TypeHandler, Configurabl
 
 	@Override
 	public String format(final Object input) {
+
+		if (input == null) {
+			return null;
+		}
+
 		final BigDecimal value = (BigDecimal) input;
 		if (value.precision() > precision) {
 			throw new IllegalArgumentException(

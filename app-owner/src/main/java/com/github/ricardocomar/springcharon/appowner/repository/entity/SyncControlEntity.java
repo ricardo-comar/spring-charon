@@ -10,12 +10,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
+@Entity(name = "sync_control")
 @Data
 @Builder
 @NoArgsConstructor
@@ -23,7 +25,9 @@ import lombok.NoArgsConstructor;
 public class SyncControlEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+	@GenericGenerator(name = "native", strategy = "native")
+	@Column(name = "id", updatable = false, nullable = false)
 	private Integer id;
 
 	@Column(unique = true, nullable = false, updatable = false)
@@ -46,5 +50,9 @@ public class SyncControlEntity {
 	private LocalDateTime sentTime;
 
 	private LocalDateTime ackTime;
+
+	public enum SyncState {
+		SENT, ACK;
+	}
 
 }

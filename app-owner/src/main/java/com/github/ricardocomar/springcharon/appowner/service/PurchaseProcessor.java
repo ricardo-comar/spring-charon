@@ -1,5 +1,7 @@
 package com.github.ricardocomar.springcharon.appowner.service;
 
+import java.math.BigDecimal;
+
 import javax.transaction.Transactional;
 import javax.transaction.Transactional.TxType;
 
@@ -14,10 +16,12 @@ import com.github.ricardocomar.springcharon.appowner.exception.UnavailableRespon
 import com.github.ricardocomar.springcharon.appowner.mapper.PurchaseMapper;
 import com.github.ricardocomar.springcharon.appowner.repository.PurchaseRepository;
 import com.github.ricardocomar.springcharon.appowner.repository.entity.PurchaseEntity;
+import com.github.ricardocomar.springcharon.appowner.repository.entity.PurchaseEntity.PurchaseStatus;
 import com.github.ricardocomar.springcharon.appowner.sync.EventUpdateNotifier;
 import com.github.ricardocomar.springcharon.appowner.sync.model.ModelUpdateEvent;
 import com.github.ricardocomar.springcharon.appowner.sync.model.Purchase;
 import com.github.ricardocomar.springcharon.appowner.sync.trancode.TrancodeTransformer;
+import com.google.common.base.Optional;
 
 @Service
 public class PurchaseProcessor {
@@ -41,10 +45,17 @@ public class PurchaseProcessor {
 
 		LOGGER.debug("Message to be processed: {}", request);
 		
-		final PurchaseEntity entity = repo.findByRequestId(request.getId()).get();
+		final PurchaseEntity entity = repo.findByRequestId(request.getId()).orElse(new PurchaseEntity());
+		entity.setCustomer(request.getCustomer());
+		entity.setRequestId(request.getId());
+		entity.setTotalValue(Optional.fromNullable(entity.getTotalValue()).or(BigDecimal.ZERO));
+		entity.setStatus(PurchaseStatus.valueOf(request.getStatus()));
+		entity.setDate(request.getDate());
+		repo.save(entity);
+
 		final Purchase model = mapper.fromEntity(entity);
 
-		notifier.notifyUpdate(new ModelUpdateEvent(model.getTransaction(), transformer.toTrancode(model)));
+		notifier.notifyUpdate(new ModelUpdateEvent("TRANPURC-1", transformer.toTrancode(model)));
 	}
 
 	@Transactional(value = TxType.REQUIRED)
