@@ -42,7 +42,7 @@ public class SpringIntegrationConfig {
 		factory.setMessageConverter(new MessagingMessageConverter());
 		factory.setConnectionFactory(jmsConnFactory);
 		factory.setSessionTransacted(true);
-		factory.setDestinationName("queue.sample");
+		factory.setDestinationName("sync.purchase");
 		return factory;
 	}
 
