@@ -1,7 +1,7 @@
-package com.github.ricardocomar.springcharon.appowner.model;
+package com.github.ricardocomar.springcharon.appowner.sync.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +36,8 @@ public class Purchase {
 	@Field(ordinal = 2, length = 10)
 	private PurchaseStatus status;
 
-	@Field(ordinal = 3, format = "ddMMyyyy", length = 8)
-	private LocalDate date;
+	@Field(ordinal = 3, format = "yyyyMMdd-HHmmssSSSSS", length = 20)
+	private LocalDateTime date;
 
 	@Segment(ordinal = 4, collection = ArrayList.class, minOccurs = 0, maxOccurs = 4, until = 200)
 	private List<PurchaseItem> items;

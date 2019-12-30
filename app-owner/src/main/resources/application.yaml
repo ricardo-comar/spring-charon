@@ -43,6 +43,12 @@ eureka:
 spring:
   main:
     banner-mode: "off"
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/spring-charon
+    username: user
+    password: password
+    initialization-mode: always
   cloud:
     discovery:
       enabled: true
@@ -55,7 +61,7 @@ spring:
     config:
       enabled: false
   application:
-    name: etl-producer
+    name: app-owner
   activemq:
     user: admin
     password: password

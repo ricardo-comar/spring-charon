@@ -1,4 +1,4 @@
-package com.github.ricardocomar.springcharon.appowner.model;
+package com.github.ricardocomar.springcharon.appowner.sync.model;
 
 import java.math.BigDecimal;
 
