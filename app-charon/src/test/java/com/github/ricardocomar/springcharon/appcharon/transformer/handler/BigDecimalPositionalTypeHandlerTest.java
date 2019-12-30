@@ -1,4 +1,4 @@
-package com.github.ricardocomar.springcharon.etlconsumer.transformer.handler;
+package com.github.ricardocomar.springcharon.appcharon.transformer.handler;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;

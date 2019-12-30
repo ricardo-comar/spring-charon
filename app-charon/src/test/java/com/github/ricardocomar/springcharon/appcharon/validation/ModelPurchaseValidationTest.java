@@ -1,4 +1,4 @@
-package com.github.ricardocomar.springcharon.etlconsumer.validation;
+package com.github.ricardocomar.springcharon.appcharon.validation;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -12,10 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.github.ricardocomar.springcharon.appcharon.fixture.PurchaseModelFixture;
 import com.github.ricardocomar.springcharon.appcharon.model.Purchase;
 import com.github.ricardocomar.springcharon.appcharon.model.PurchaseItem;
 import com.github.ricardocomar.springcharon.appcharon.validation.ValidatorPurchase;
-import com.github.ricardocomar.springcharon.etlconsumer.fixture.PurchaseModelFixture;
 
 import br.com.fluentvalidator.exception.ValidationException;
 import br.com.six2six.fixturefactory.Fixture;

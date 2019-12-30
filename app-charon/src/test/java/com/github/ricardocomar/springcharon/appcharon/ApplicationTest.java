@@ -1,4 +1,4 @@
-package com.github.ricardocomar.springcharon.etlconsumer;
+package com.github.ricardocomar.springcharon.appcharon;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -33,7 +33,7 @@ import com.github.ricardocomar.springbootetl.model.PurchaseAvro;
 import com.github.ricardocomar.springcharon.appcharon.CharonApplication;
 import com.github.ricardocomar.springcharon.appcharon.config.AppProperties;
 import com.github.ricardocomar.springcharon.appcharon.consumer.model.RequestMessage;
-import com.github.ricardocomar.springcharon.etlconsumer.fixture.PurchaseModelFixture;
+import com.github.ricardocomar.springcharon.appcharon.fixture.PurchaseModelFixture;
 
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;

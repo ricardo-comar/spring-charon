@@ -1,20 +1,20 @@
-package com.github.ricardocomar.springcharon.etlconsumer.fixture;
+package com.github.ricardocomar.springcharon.appcharon.fixture;
 
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import com.github.ricardocomar.springcharon.appcharon.model.PurchaseItem;
+import com.github.ricardocomar.springbootetl.model.PurchaseItemAvro;
 
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.Rule;
 import br.com.six2six.fixturefactory.loader.TemplateLoader;
 
-public class PurchaseItemModelFixture implements TemplateLoader {
+public class PurchaseItemAvroFixture implements TemplateLoader {
 
 	@Override
 	public void load() {
-		Fixture.of(PurchaseItem.class).addTemplate("g6play", new Rule() {
+		Fixture.of(PurchaseItemAvro.class).addTemplate("g6play", new Rule() {
 			{
 				add("id", "123-45-6");
 				add("sku", "sku123456");
@@ -22,7 +22,7 @@ public class PurchaseItemModelFixture implements TemplateLoader {
 				add("value", new BigDecimal(500.00).setScale(2, RoundingMode.HALF_EVEN));
 			}
 		});
-		Fixture.of(PurchaseItem.class).addTemplate("iphone10", new Rule() {
+		Fixture.of(PurchaseItemAvro.class).addTemplate("iphone10", new Rule() {
 			{
 				add("id", "654-32-1");
 				add("sku", "sku654321");
@@ -30,7 +30,7 @@ public class PurchaseItemModelFixture implements TemplateLoader {
 				add("value", new BigDecimal(3900.00).setScale(2, RoundingMode.HALF_EVEN));
 			}
 		});
-		Fixture.of(PurchaseItem.class).addTemplate("iphone11pro", new Rule() {
+		Fixture.of(PurchaseItemAvro.class).addTemplate("iphone11pro", new Rule() {
 			{
 				add("id", "999-99-9");
 				add("sku", "sku999999");

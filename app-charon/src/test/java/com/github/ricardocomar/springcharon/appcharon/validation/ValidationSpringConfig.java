@@ -1,4 +1,4 @@
-package com.github.ricardocomar.springcharon.etlconsumer.validation;
+package com.github.ricardocomar.springcharon.appcharon.validation;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

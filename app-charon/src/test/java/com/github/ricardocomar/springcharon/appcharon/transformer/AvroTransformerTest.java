@@ -1,4 +1,4 @@
-package com.github.ricardocomar.springcharon.etlconsumer.transformer;
+package com.github.ricardocomar.springcharon.appcharon.transformer;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
@@ -12,11 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.github.ricardocomar.springcharon.appcharon.fixture.PurchaseModelFixture;
+import com.github.ricardocomar.springcharon.appcharon.mapper.MapperSpringConfig;
 import com.github.ricardocomar.springcharon.appcharon.model.ConsumerModel;
 import com.github.ricardocomar.springcharon.appcharon.model.Purchase;
 import com.github.ricardocomar.springcharon.appcharon.transformer.AvroTransformer;
-import com.github.ricardocomar.springcharon.etlconsumer.fixture.PurchaseModelFixture;
-import com.github.ricardocomar.springcharon.etlconsumer.mapper.MapperSpringConfig;
 
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;

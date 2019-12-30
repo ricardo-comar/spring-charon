@@ -1,4 +1,4 @@
-package com.github.ricardocomar.springcharon.etlconsumer.fixture;
+package com.github.ricardocomar.springcharon.appcharon.fixture;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,20 +15,6 @@ public class RequestMessageFixture implements TemplateLoader {
 
 	@Override
 	public void load() {
-		Fixture.of(RequestMessage.class).addTemplate("team", new Rule() {
-			{
-				final String hire1 = LocalDateTime.now().minusYears(10).format(TIME_FORMATTER);
-				final String hire2 = LocalDateTime.now().minusYears(5).format(TIME_FORMATTER);
-				final String hire3 = LocalDateTime.now().minusYears(4).format(TIME_FORMATTER);
-				add("id", UUID.randomUUID().toString());
-				add("origin", "TestSuite");
-				add("trancode",
-						"TRANTEAM-1" + "Team ABC  " + "Jown        Snow      Boss           1200010   " + hire1
-								+ "ACTIVE    "
-								+ "Tyrion 1    Lannister Developer 1    900005    " + hire2 + "DISMISSED "
-								+ "Tyrion 2    Lannister Developer 2    800004    " + hire3 + "RESIGNED  ");
-			}
-		});
 		Fixture.of(RequestMessage.class).addTemplate("purchase", new Rule() {
 			{
 				final String date = LocalDateTime.now().minusDays(10).format(TIME_FORMATTER);

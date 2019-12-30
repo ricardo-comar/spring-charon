@@ -1,4 +1,4 @@
-package com.github.ricardocomar.springcharon.etlconsumer.processor;
+package com.github.ricardocomar.springcharon.appcharon.processor;
 
 import static org.junit.Assert.assertEquals;
 
@@ -17,12 +17,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.github.ricardocomar.springbootetl.model.PurchaseAvro;
 import com.github.ricardocomar.springcharon.appcharon.consumer.model.RequestMessage;
-import com.github.ricardocomar.springcharon.appcharon.processor.MessageProcessor;
+import com.github.ricardocomar.springcharon.appcharon.fixture.RequestMessageFixture;
+import com.github.ricardocomar.springcharon.appcharon.mapper.MapperSpringConfig;
 import com.github.ricardocomar.springcharon.appcharon.producer.ReturnProducer;
-import com.github.ricardocomar.springcharon.etlconsumer.fixture.RequestMessageFixture;
-import com.github.ricardocomar.springcharon.etlconsumer.mapper.MapperSpringConfig;
-import com.github.ricardocomar.springcharon.etlconsumer.transformer.TransformerSpringConfig;
-import com.github.ricardocomar.springcharon.etlconsumer.validation.ValidationSpringConfig;
+import com.github.ricardocomar.springcharon.appcharon.transformer.TransformerSpringConfig;
+import com.github.ricardocomar.springcharon.appcharon.validation.ValidationSpringConfig;
 
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
@@ -55,7 +54,7 @@ public class MessageProcessorTest {
 			return null;
 		}).when(mockProducer).sendMessage(Mockito.any(GenericRecord.class), Mockito.anyString());
 
-		final RequestMessage requestMessage = Fixture.from(RequestMessage.class).gimme("team");
+		final RequestMessage requestMessage = Fixture.from(RequestMessage.class).gimme("purchase");
 		processor.process(requestMessage.getTrancode(), requestId);
 
 		Mockito.verify(mockProducer, Mockito.atLeastOnce()).sendMessage(Mockito.any(GenericRecord.class),

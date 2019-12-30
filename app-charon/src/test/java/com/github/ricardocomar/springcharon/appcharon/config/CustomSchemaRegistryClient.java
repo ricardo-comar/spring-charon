@@ -1,4 +1,4 @@
-package com.github.ricardocomar.springcharon.etlconsumer.config;
+package com.github.ricardocomar.springcharon.appcharon.config;
 
 import java.io.IOException;
 import java.util.HashMap;

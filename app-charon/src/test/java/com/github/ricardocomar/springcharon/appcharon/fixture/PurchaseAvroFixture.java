@@ -1,4 +1,4 @@
-package com.github.ricardocomar.springcharon.etlconsumer.fixture;
+package com.github.ricardocomar.springcharon.appcharon.fixture;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

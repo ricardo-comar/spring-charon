@@ -36,7 +36,7 @@ public class Purchase implements ConsumerMainModel {
 	@Field(ordinal = 2, length = 10)
 	private PurchaseStatus status;
 
-	@Field(ordinal = 3, format = "yyyyMMdd-HHmmssSSSSS", length = 8)
+	@Field(ordinal = 3, format = "yyyyMMdd-HHmmssSSSSS", length = 20)
 	private LocalDateTime date;
 
 	@Segment(ordinal = 4, collection = ArrayList.class, minOccurs = 0, maxOccurs = 4, until = 200)
