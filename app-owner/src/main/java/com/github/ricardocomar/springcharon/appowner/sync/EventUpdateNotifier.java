@@ -46,7 +46,7 @@ public class EventUpdateNotifier {
 				.build();
 		syncRepo.save(syncEntity);
 
-		jmsTemplate.convertAndSend("queue.outbound", model.getPayload(), new MessagePostProcessor() {
+		jmsTemplate.convertAndSend("sync.purchase", model.getPayload(), new MessagePostProcessor() {
 			@Override
 			public Message postProcessMessage(final Message message) throws JMSException {
 				message.setStringProperty(AppProperties.HEADER_SYNC_ID, syncId);
