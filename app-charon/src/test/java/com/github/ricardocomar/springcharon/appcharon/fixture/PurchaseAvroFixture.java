@@ -15,7 +15,7 @@ import br.com.six2six.fixturefactory.loader.TemplateLoader;
 
 public class PurchaseAvroFixture implements TemplateLoader {
 
-	private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmssSSSSS");
 
 	@Override
 	public void load() {

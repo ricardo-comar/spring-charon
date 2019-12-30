@@ -9,6 +9,7 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 
 import org.apache.avro.generic.GenericRecord;
+import org.apache.avro.specific.SpecificRecord;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -30,7 +31,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.github.ricardocomar.springbootetl.model.PurchaseAvro;
-import com.github.ricardocomar.springcharon.appcharon.CharonApplication;
 import com.github.ricardocomar.springcharon.appcharon.config.AppProperties;
 import com.github.ricardocomar.springcharon.appcharon.consumer.model.RequestMessage;
 import com.github.ricardocomar.springcharon.appcharon.fixture.PurchaseModelFixture;
@@ -55,7 +55,7 @@ public class ApplicationTest {
 	@Autowired
 	private JmsTemplate jmsTemplate;
 
-	private static GenericRecord RESPONSE_AVRO;
+	private static SpecificRecord RESPONSE_AVRO;
 	private static String RESPONSE_REQUEST_ID;
 	private final String lock = "lock";
 
@@ -104,7 +104,7 @@ public class ApplicationTest {
 
 	@Bean
 	@KafkaListener(topics = "topicOutbound", groupId = "test-${random.value}")
-	public void consumeResponse(@Payload final GenericRecord message,
+	public void consumeResponse(@Payload final SpecificRecord message,
 			@Header(AppProperties.HEADER_REQUEST_ID) final String requestId) throws Exception {
 
 		RESPONSE_AVRO = message;

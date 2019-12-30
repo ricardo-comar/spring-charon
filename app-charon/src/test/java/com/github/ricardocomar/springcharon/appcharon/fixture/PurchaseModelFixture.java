@@ -3,7 +3,6 @@ package com.github.ricardocomar.springcharon.appcharon.fixture;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import com.github.ricardocomar.springcharon.appcharon.model.Purchase;
 import com.github.ricardocomar.springcharon.appcharon.model.Purchase.PurchaseStatus;
@@ -14,8 +13,6 @@ import br.com.six2six.fixturefactory.Rule;
 import br.com.six2six.fixturefactory.loader.TemplateLoader;
 
 public class PurchaseModelFixture implements TemplateLoader {
-
-	private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	@Override
 	public void load() {
