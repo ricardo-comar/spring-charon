@@ -8,7 +8,6 @@ import java.util.UUID;
 import javax.jms.JMSException;
 import javax.jms.Message;
 
-import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.specific.SpecificRecord;
 import org.junit.After;
 import org.junit.Before;
@@ -59,7 +58,7 @@ public class ApplicationTest {
 	private static String RESPONSE_REQUEST_ID;
 	private final String lock = "lock";
 
-	private GenericRecord expectedResponse;
+	private SpecificRecord expectedResponse;
 
 	private String requestId;
 
@@ -86,7 +85,7 @@ public class ApplicationTest {
 	}
 
 	private void sendAndWait(final RequestMessage msg, final String requestId) {
-		jmsTemplate.convertAndSend("queue.sample", msg.getTrancode(), new MessagePostProcessor() {
+		jmsTemplate.convertAndSend("sync.purchase", msg.getTrancode(), new MessagePostProcessor() {
 			@Override
 			public Message postProcessMessage(final Message message) throws JMSException {
 				message.setStringProperty(AppProperties.HEADER_REQUEST_ID, requestId);

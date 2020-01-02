@@ -2,8 +2,6 @@ package com.github.ricardocomar.springcharon.appcharon.fixture;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import com.github.ricardocomar.springbootetl.model.PurchaseAvro;
 import com.github.ricardocomar.springbootetl.model.PurchaseAvroStatus;
@@ -15,7 +13,6 @@ import br.com.six2six.fixturefactory.loader.TemplateLoader;
 
 public class PurchaseAvroFixture implements TemplateLoader {
 
-	private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmssSSSSS");
 
 	@Override
 	public void load() {
@@ -26,7 +23,7 @@ public class PurchaseAvroFixture implements TemplateLoader {
 				add("customer", "Lala Silva");
 				add("totalValue", new BigDecimal(500.00 + 3900.00 + 11500.00).setScale(2, RoundingMode.HALF_EVEN));
 				add("status", PurchaseAvroStatus.OPEN);
-				add("date", LocalDateTime.now().minusDays(10).format(TIME_FORMATTER));
+				add("date", LocalDateTimeFixture.LDF_10_DAYS_PAST.format(LocalDateTimeFixture.TIME_FORMATTER));
 				add("items", has(3).of(PurchaseItemAvro.class, "g6play", "iphone10", "iphone11pro"));
 			}
 		});
@@ -38,7 +35,7 @@ public class PurchaseAvroFixture implements TemplateLoader {
 				add("totalValue",
 						new BigDecimal((500.00 + 3900.00 + 11500.00) * 2.0).setScale(2, RoundingMode.HALF_EVEN));
 				add("status", PurchaseAvroStatus.OPEN);
-				add("date", LocalDateTime.now().minusDays(10).format(TIME_FORMATTER));
+				add("date", LocalDateTimeFixture.LDF_10_DAYS_PAST.format(LocalDateTimeFixture.TIME_FORMATTER));
 				add("items", has(6).of(PurchaseItemAvro.class, "g6play", "iphone10", "iphone11pro"));
 			}
 		});

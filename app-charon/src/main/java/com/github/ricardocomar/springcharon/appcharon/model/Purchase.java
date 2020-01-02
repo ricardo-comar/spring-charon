@@ -22,7 +22,8 @@ import lombok.NoArgsConstructor;
 public class Purchase implements ConsumerMainModel {
 
 	@Field(ordinal = 0, length = 10)
-	private String transaction;
+	@Builder.Default
+	private String transaction = "TRANPURC-1";
 
 	@Field(ordinal = 0, length = 12)
 	private String id;

@@ -6,7 +6,6 @@ import org.apache.avro.generic.GenericRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.expression.common.LiteralExpression;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.annotation.Transformer;
@@ -22,7 +21,6 @@ import com.github.ricardocomar.springcharon.appcharon.transformer.AvroTransforme
 import com.github.ricardocomar.springcharon.appcharon.transformer.TrancodeTransformer;
 import com.github.ricardocomar.springcharon.appcharon.validation.ModelValidator;
 
-@Profile("sp-int")
 @Configuration
 @EnableIntegration
 public class SpringIntegrationConfig {

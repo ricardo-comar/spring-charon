@@ -2,7 +2,6 @@ package com.github.ricardocomar.springcharon.appcharon.fixture;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.LocalDateTime;
 
 import com.github.ricardocomar.springcharon.appcharon.model.Purchase;
 import com.github.ricardocomar.springcharon.appcharon.model.Purchase.PurchaseStatus;
@@ -23,7 +22,7 @@ public class PurchaseModelFixture implements TemplateLoader {
 				add("customer", "Lala Silva");
 				add("totalValue", new BigDecimal(500.00 + 3900.00 + 11500.00).setScale(2, RoundingMode.HALF_EVEN));
 				add("status", PurchaseStatus.OPEN);
-				add("date", LocalDateTime.now().minusDays(10));
+				add("date", LocalDateTimeFixture.LDF_10_DAYS_PAST);
 				add("items", has(3).of(PurchaseItem.class, "g6play", "iphone10", "iphone11pro"));
 			}
 		});
@@ -36,7 +35,7 @@ public class PurchaseModelFixture implements TemplateLoader {
 						new BigDecimal((500.00 + 3900.00 + 11500.00) * 2.0).setScale(2,
 						RoundingMode.HALF_EVEN));
 				add("status", PurchaseStatus.OPEN);
-				add("date", LocalDateTime.now().minusDays(10));
+				add("date", LocalDateTimeFixture.LDF_10_DAYS_PAST);
 				add("items", has(6).of(PurchaseItem.class, "g6play", "iphone10", "iphone11pro"));
 			}
 		});
