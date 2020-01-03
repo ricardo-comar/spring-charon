@@ -15,13 +15,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.github.ricardocomar.springbootetl.model.PurchaseAvro;
 import com.github.ricardocomar.springcharon.appcharon.consumer.model.RequestMessage;
 import com.github.ricardocomar.springcharon.appcharon.fixture.RequestMessageFixture;
 import com.github.ricardocomar.springcharon.appcharon.mapper.MapperSpringConfig;
 import com.github.ricardocomar.springcharon.appcharon.producer.ReturnProducer;
 import com.github.ricardocomar.springcharon.appcharon.transformer.TransformerSpringConfig;
 import com.github.ricardocomar.springcharon.appcharon.validation.ValidationSpringConfig;
+import com.github.ricardocomar.springcharon.model.PurchaseAvro;
 
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;

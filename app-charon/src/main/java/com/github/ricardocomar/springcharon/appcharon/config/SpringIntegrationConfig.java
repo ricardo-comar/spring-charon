@@ -61,7 +61,7 @@ public class SpringIntegrationConfig {
 	public MessageHandler kafkaMessageHandler(final KafkaTemplate<String, GenericRecord> kafkaTemplate) {
 		final KafkaProducerMessageHandler<String, GenericRecord> handler = new KafkaProducerMessageHandler<>(
 				kafkaTemplate);
-		handler.setTopicExpression(new LiteralExpression("topicOutbound"));
+		handler.setTopicExpression(new LiteralExpression("topic-sync-purchase"));
 		return handler;
 	}
 

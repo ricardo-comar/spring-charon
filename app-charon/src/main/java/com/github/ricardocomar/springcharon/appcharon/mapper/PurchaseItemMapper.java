@@ -3,8 +3,8 @@ package com.github.ricardocomar.springcharon.appcharon.mapper;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 
-import com.github.ricardocomar.springbootetl.model.PurchaseItemAvro;
 import com.github.ricardocomar.springcharon.appcharon.model.PurchaseItem;
+import com.github.ricardocomar.springcharon.model.PurchaseItemAvro;
 
 @Mapper(componentModel = "spring")
 public abstract class PurchaseItemMapper

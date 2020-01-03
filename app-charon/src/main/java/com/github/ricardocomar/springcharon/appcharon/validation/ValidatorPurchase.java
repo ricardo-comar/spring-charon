@@ -1,6 +1,5 @@
 package com.github.ricardocomar.springcharon.appcharon.validation;
 
-import static br.com.fluentvalidator.predicate.ComparablePredicate.between;
 import static br.com.fluentvalidator.predicate.ComparablePredicate.lessThanOrEqual;
 import static br.com.fluentvalidator.predicate.LogicalPredicate.not;
 import static br.com.fluentvalidator.predicate.ObjectPredicate.nullValue;
@@ -9,7 +8,6 @@ import static br.com.fluentvalidator.predicate.StringPredicate.stringMatches;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -46,18 +44,17 @@ public class ValidatorPurchase extends AbstractValidator<Purchase> {
 				.must(lessThanOrEqual(LocalDateTime.now())).withMessage("date must be in the past")
 				.critical(ETLValidationException.class);
 
-		ruleFor("items", Purchase::getItems).must(between(Collection::size, 0, 6))
-				.withMessage("items is mandatory and must be 1-5 size").critical(ETLValidationException.class);
+//		ruleFor("items", Purchase::getItems).must(between(Collection::size, 0, 6))
+//				.withMessage("items is mandatory and must be 1-5 size").critical(ETLValidationException.class);
 		ruleForEach("items", Purchase::getItems)
 				.whenever(not(nullValue())).withValidator(valItem).critical(ETLValidationException.class);
 
 		ruleFor("totalValue", Purchase::getTotalValue).must(not(nullValue())).withMessage("totalValue is mandatory")
 				.critical(ETLValidationException.class);
 		ruleFor("totalValue", purchase -> purchase)
-				.must(p -> p.getTotalValue()
-						.equals(
-								p.getItems().stream().map(PurchaseItem::getValue).reduce(BigDecimal.ZERO,
-										BigDecimal::add)))
+				.must(p -> 0 == p.getTotalValue().compareTo( //
+						p.getItems().stream().map(PurchaseItem::getValue) //
+								.reduce(BigDecimal.ZERO, BigDecimal::add)))
 				.withMessage("totalValue must be the sum of items values")
 				.critical(ETLValidationException.class);
 	}

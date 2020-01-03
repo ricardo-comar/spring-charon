@@ -16,7 +16,6 @@ import com.github.ricardocomar.springcharon.appcharon.fixture.PurchaseModelFixtu
 import com.github.ricardocomar.springcharon.appcharon.mapper.MapperSpringConfig;
 import com.github.ricardocomar.springcharon.appcharon.model.ConsumerModel;
 import com.github.ricardocomar.springcharon.appcharon.model.Purchase;
-import com.github.ricardocomar.springcharon.appcharon.transformer.AvroTransformer;
 
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;

@@ -1,8 +1,10 @@
 {
-  "namespace": "com.github.ricardocomar.springbootetl.model",
+  "namespace": "com.github.ricardocomar.springcharon.model",
   "type": "record",
   "name": "PurchaseAvro",
   "fields": [
+    {"name": "syncTransaction", "type": "string", "avro.java.string": "String"},
+    {"name": "syncSequence", "type": "string", "avro.java.string": "String"},
     {"name": "transaction", "type": "string", "avro.java.string": "String"},
     {"name": "id", "type": "string", "avro.java.string": "String"},
     {"name": "customer", "type": "string", "avro.java.string": "String"},
@@ -10,7 +12,7 @@
     {"name": "status", "type": { "type": "enum", "name": "PurchaseAvroStatus", "symbols": ["OPEN", "PAID", "CANCELLED", "RETURNED", "DELIVERED"] } },
     {"name": "date", "type":"string", "avro.java.string": "String"},
     {"name": "items", 
-      "type":{"type": "array",  
+      "type":["null", {"type": "array",  
         "items":{"name":"PurchaseItemAvro", "type":"record",
           "fields":[
             {"name":"id", "type":"string", "avro.java.string": "String"},
@@ -19,7 +21,7 @@
             {"name":"value", "type":{ "type": "bytes", "logicalType": "decimal", "precision": 10, "scale": 2 } }
           ]
         }
-      }
+      }]
     }
   ]  
 }

@@ -3,9 +3,9 @@ package com.github.ricardocomar.springcharon.appcharon.fixture;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import com.github.ricardocomar.springbootetl.model.PurchaseAvro;
-import com.github.ricardocomar.springbootetl.model.PurchaseAvroStatus;
-import com.github.ricardocomar.springbootetl.model.PurchaseItemAvro;
+import com.github.ricardocomar.springcharon.model.PurchaseAvro;
+import com.github.ricardocomar.springcharon.model.PurchaseAvroStatus;
+import com.github.ricardocomar.springcharon.model.PurchaseItemAvro;
 
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.Rule;

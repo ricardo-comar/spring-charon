@@ -5,15 +5,17 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-import com.github.ricardocomar.springbootetl.model.PurchaseAvro;
 import com.github.ricardocomar.springcharon.appcharon.model.Purchase;
+import com.github.ricardocomar.springcharon.model.PurchaseAvro;
 
 @Mapper(componentModel = "spring", uses = { PurchaseItemMapper.class })
 public abstract class PurchaseMapper implements ConsumerAvroMapper<PurchaseAvro>, ConsumerModelMapper<Purchase> {
 
 	@Override
 	@Mappings({
-			@Mapping(target = "date", expression = "java(model.getDate().format(java.time.format.DateTimeFormatter.ofPattern(\"yyyyMMdd-HHmmssSSSSS\")))") })
+			@Mapping(target = "date", expression = "java(model.getDate().format(java.time.format.DateTimeFormatter.ofPattern(\"yyyyMMdd-HHmmssSSSSS\")))"),
+			@Mapping(target = "syncTransaction", constant = "AAA"),
+			@Mapping(target = "syncSequence", constant = "10") })
 	public abstract PurchaseAvro fromModel(Purchase model);
 
 	@InheritInverseConfiguration

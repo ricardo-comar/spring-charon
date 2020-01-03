@@ -8,7 +8,7 @@ spring:
   
   kafka:
     properties:
-      schema.registry.namespaces: com.github.ricardocomar.springbootetl.model
+      schema.registry.namespaces: com.github.ricardocomar.springcharon.model
     consumer:
       value-deserializer: com.github.ricardocomar.springcharon.appcharon.config.CustomKafkaAvroDeserializer
       bootstrap-servers: ${spring.embedded.kafka.brokers} 

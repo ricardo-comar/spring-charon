@@ -29,10 +29,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.github.ricardocomar.springbootetl.model.PurchaseAvro;
 import com.github.ricardocomar.springcharon.appcharon.config.AppProperties;
 import com.github.ricardocomar.springcharon.appcharon.consumer.model.RequestMessage;
 import com.github.ricardocomar.springcharon.appcharon.fixture.PurchaseModelFixture;
+import com.github.ricardocomar.springcharon.model.PurchaseAvro;
 
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
