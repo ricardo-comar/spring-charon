@@ -1,5 +1,8 @@
 
 # Spring Charon
+## Data Sync between two applications using Spring Integration
+
+
 
 
 
@@ -34,3 +37,9 @@
 * https://objectpartners.com/2018/08/21/testing-with-spring-kafka-and-mockschemaregistryclient/
 * https://memorynotfound.com/spring-boot-embedded-activemq-configuration-example/
 
+* https://medium.com/@felipedutratine/kafka-ordering-guarantees-99320db8f87f
+* https://github.com/christian-posta/spring-integration-samples
+
+
+## Backlog
+* Make activemq files writable at target folder

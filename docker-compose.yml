@@ -22,10 +22,10 @@ services:
       # jms
       - "61616:61616"
     networks: [backing-services]
-    volumes:
-      - ./target/activemq/conf:/opt/activemq/conf
-      - ./target/activemq/data:/data/activemq
-      - ./target/activemq/log:/var/log/activemq
+#    volumes:
+#      - ./target/activemq/conf:/opt/activemq/conf
+#      - ./target/activemq/data:/data/activemq
+#      - ./target/activemq/log:/var/log/activemq
     environment:
       ACTIVEMQ_REMOVE_DEFAULT_ACCOUNT: "true"
       ACTIVEMQ_ADMIN_LOGIN: admin
@@ -36,8 +36,8 @@ services:
       ACTIVEMQ_READ_PASSWORD: password
       ACTIVEMQ_JMX_LOGIN: jmx
       ACTIVEMQ_JMX_PASSWORD: password
-      ACTIVEMQ_STATIC_TOPICS: static-topic-1;static-topic-2
-      ACTIVEMQ_STATIC_QUEUES: static-queue-1;static-queue-2
+#      ACTIVEMQ_STATIC_TOPICS: static-topic-1;static-topic-2
+#      ACTIVEMQ_STATIC_QUEUES: static-queue-1;static-queue-2
       ACTIVEMQ_ENABLED_SCHEDULER: "true"
       ACTIVEMQ_MIN_MEMORY: 512
       ACTIVEMQ_MAX_MEMORY: 2048
@@ -58,6 +58,17 @@ services:
       - "9997:9997"
       - "8088:8088"
       - "1514:1514"
+  db:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_DATABASE: spring-charon
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword
 
   zookeeper-1:
     image: confluentinc/cp-zookeeper:latest
