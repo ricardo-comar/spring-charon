@@ -1,0 +1,10 @@
+{
+  "namespace": "com.github.ricardocomar.springcharon.model",
+  "type": "record",
+  "name": "SyncAckAvro",
+  "fields": [
+    {"name": "transaction", "type": "string", "avro.java.string": "String"},
+    {"name": "id", "type": "string", "avro.java.string": "String"},
+    {"name": "sequence", "type": "string", "avro.java.string": "String"}
+  ]  
+}

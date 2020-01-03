@@ -19,27 +19,27 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Purchase implements ConsumerMainModel {
+public class Purchase {
 
 	@Field(ordinal = 0, length = 10)
 	private String transaction;
 
-	@Field(ordinal = 0, length = 12)
+	@Field(ordinal = 1, length = 12)
 	private String id;
 
-	@Field(ordinal = 0, length = 30)
+	@Field(ordinal = 2, length = 30)
 	private String customer;
 
-	@Field(ordinal = 1, length = 10, format = "10,2")
+	@Field(ordinal = 3, length = 10, format = "10,2")
 	private BigDecimal totalValue;
 
-	@Field(ordinal = 2, length = 10)
+	@Field(ordinal = 4, length = 10)
 	private PurchaseStatus status;
 
-	@Field(ordinal = 3, format = "ddMMyyyy", length = 8)
+	@Field(ordinal = 5, format = "ddMMyyyy", length = 8)
 	private LocalDate date;
 
-	@Segment(ordinal = 4, collection = ArrayList.class, minOccurs = 0, maxOccurs = 4, until = 200)
+	@Segment(ordinal = 6, collection = ArrayList.class, minOccurs = 0, maxOccurs = 4, until = 200)
 	private List<PurchaseItem> items;
 
 	public enum PurchaseStatus {

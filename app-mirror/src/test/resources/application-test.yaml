@@ -5,49 +5,62 @@ eureka:
     fetch-registry: false
 
 spring:
-  
+
+  datasource:
+    url: jdbc:h2:~/test;AUTO_SERVER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+    initialization-mode: always
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect  
   kafka:
     properties:
-      schema.registry.namespaces: com.github.ricardocomar.springbootetl.model
+      schema.registry.namespaces: com.github.ricardocomar.springcharon.model
     consumer:
-      value-deserializer: com.github.ricardocomar.springbootetl.etlconsumer.config.CustomKafkaAvroDeserializer
+      value-deserializer: com.github.ricardocomar.springcharon.appmirror.config.CustomKafkaAvroDeserializer
       bootstrap-servers: ${spring.embedded.kafka.brokers} 
     producer:
-      value-serializer: com.github.ricardocomar.springbootetl.etlconsumer.config.CustomKafkaAvroSerializer
+      value-serializer: com.github.ricardocomar.springcharon.appmirror.config.CustomKafkaAvroSerializer
       bootstrap-servers: ${spring.embedded.kafka.brokers}
-
-# Embedded ActiveMQ Configuration Example
-  activemq:
-      broker-url: vm://embedded?broker.persistent=false,useShutdownHook=false
-      in-memory: true
-      non-blocking-redelivery: true
-      packages:
-        trust-all: true
-      pool:
-        block-if-full: true
-        block-if-full-timeout: -1
-        create-connection-on-startup: true
-        enabled: false
-        expiry-timeout: 0
-        idle-timeout: 30000
-        max-connections: 1
-        maximum-active-session-per-connection: 500
-        reconnect-on-exception: true
-        time-between-expiration-check: -1
-        use-anonymous-producers: true
-
-  # Spring JMS Settings
-  jms:
-    listener:
-      acknowledge-mode: auto
-      auto-startup: true
-      concurrency: 5
-      max-concurrency: 10
-    pub-sub-domain: false
-    template:
-      default-destination:
-      delivery-mode: NON_PERSISTENT
-      priority: 100
-      qos-enabled: true
-      receive-timeout: 1000
-      time-to-live: 36000
+#
+## Embedded ActiveMQ Configuration Example
+#  activemq:
+#      broker-url: vm://embedded?broker.persistent=false,useShutdownHook=false
+#      in-memory: true
+#      non-blocking-redelivery: true
+#      packages:
+#        trust-all: true
+#      pool:
+#        block-if-full: true
+#        block-if-full-timeout: -1
+#        create-connection-on-startup: true
+#        enabled: false
+#        expiry-timeout: 0
+#        idle-timeout: 30000
+#        max-connections: 1
+#        maximum-active-session-per-connection: 500
+#        reconnect-on-exception: true
+#        time-between-expiration-check: -1
+#        use-anonymous-producers: true
+#
+#  # Spring JMS Settings
+#  jms:
+#    listener:
+#      acknowledge-mode: auto
+#      auto-startup: true
+#      concurrency: 5
+#      max-concurrency: 10
+#    pub-sub-domain: false
+#    template:
+#      default-destination:
+#      delivery-mode: NON_PERSISTENT
+#      priority: 100
+#      qos-enabled: true
+#      receive-timeout: 1000
+#      time-to-live: 36000

@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PurchaseItem implements ConsumerModel {
+public class PurchaseItem {
 	
 	@Field(ordinal = 0, length = 12)
 	private String id;
