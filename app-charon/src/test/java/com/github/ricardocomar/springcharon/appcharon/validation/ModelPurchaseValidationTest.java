@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,6 +105,7 @@ public class ModelPurchaseValidationTest {
 	}
 
 	@Test(expected = ValidationException.class)
+	@Ignore("validação desativada")
 	public void testOverloadedItems() throws Exception {
 		purchase.setItems(Fixture.from(PurchaseItem.class).gimme(6, "g6play"));
 		purchase.setTotalValue(
