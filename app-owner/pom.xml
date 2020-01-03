@@ -102,6 +102,14 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
+		<dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jsr310</artifactId>
+    </dependency>  
+		<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-databind</artifactId>
+		</dependency>		
 
 		<!-- Tests -->
 		<dependency>
@@ -133,8 +141,8 @@
 			<artifactId>logback-jackson</artifactId>
 			<version>${logback.contrib.version}</version>
 		</dependency>
+  	<!-- JsonLayout -->
 		<dependency>
-			<!-- JsonLayout -->
 			<groupId>ch.qos.logback.contrib</groupId>
 			<artifactId>logback-json-classic</artifactId>
 			<version>${logback.contrib.version}</version>

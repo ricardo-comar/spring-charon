@@ -55,7 +55,7 @@ public class PurchaseProcessor {
 
 		final Purchase model = mapper.fromEntity(entity);
 
-		notifier.notifyUpdate(new ModelUpdateEvent("TRANPURC-1", transformer.toTrancode(model)));
+		notifier.notifyUpdate(new ModelUpdateEvent(model.getTransaction(), transformer.toTrancode(model)));
 	}
 
 	@Transactional(value = TxType.REQUIRED)
