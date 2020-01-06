@@ -102,7 +102,7 @@ public class ApplicationTest {
 	}
 
 	@Bean
-	@KafkaListener(topics = "topicOutbound", groupId = "test-${random.value}")
+	@KafkaListener(topics = "topic-sync-purchase", groupId = "test-${random.value}")
 	public void consumeResponse(@Payload final SpecificRecord message,
 			@Header(AppProperties.HEADER_REQUEST_ID) final String requestId) throws Exception {
 

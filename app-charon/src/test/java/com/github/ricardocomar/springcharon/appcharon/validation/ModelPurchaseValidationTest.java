@@ -1,5 +1,10 @@
 package com.github.ricardocomar.springcharon.appcharon.validation;
 
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,7 +22,7 @@ import com.github.ricardocomar.springcharon.appcharon.fixture.PurchaseModelFixtu
 import com.github.ricardocomar.springcharon.appcharon.model.Purchase;
 import com.github.ricardocomar.springcharon.appcharon.model.PurchaseItem;
 
-import br.com.fluentvalidator.exception.ValidationException;
+import br.com.fluentvalidator.context.ValidationResult;
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
 
@@ -41,58 +46,74 @@ public class ModelPurchaseValidationTest {
 
 	@Test
 	public void testValid() {
-		validator.validate(purchase);
+		final ValidationResult result = validator.validate(purchase);
+		assertThat(result.isValid(), equalTo(true));
+		assertThat(result.getErrors(), empty());
 	}
 
-	@Test(expected = ValidationException.class)
+	@Test
 	public void testEmptyTransaction() throws Exception {
 		purchase.setTransaction(null);
-		validator.validate(purchase);
+		final ValidationResult result = validator.validate(purchase);
+		assertThat(result.isValid(), equalTo(false));
+		assertThat(result.getErrors(), not(empty()));
 	}
 
-	@Test(expected = ValidationException.class)
+	@Test
 	public void testInvalidTransaction() throws Exception {
 		purchase.setTransaction("ABC");
-		validator.validate(purchase);
+		final ValidationResult result = validator.validate(purchase);
+		assertThat(result.isValid(), equalTo(false));
+		assertThat(result.getErrors(), not(empty()));
 	}
 
-	@Test(expected = ValidationException.class)
+	@Test
 	public void testEmptyId() throws Exception {
 		purchase.setId(null);
-		validator.validate(purchase);
+		final ValidationResult result = validator.validate(purchase);
+		assertThat(result.isValid(), equalTo(false));
+		assertThat(result.getErrors(), not(empty()));
 	}
 
-	@Test(expected = ValidationException.class)
+	@Test
 	public void testEmptyCustomer() throws Exception {
 		purchase.setCustomer(null);
-		validator.validate(purchase);
+		final ValidationResult result = validator.validate(purchase);
+		assertThat(result.isValid(), equalTo(false));
+		assertThat(result.getErrors(), not(empty()));
 	}
 
-	@Test(expected = ValidationException.class)
+	@Test
 	public void testEmptyStatus() throws Exception {
 		purchase.setStatus(null);
-		validator.validate(purchase);
+		final ValidationResult result = validator.validate(purchase);
+		assertThat(result.isValid(), equalTo(false));
+		assertThat(result.getErrors(), not(empty()));
 	}
 
-	@Test(expected = ValidationException.class)
+	@Test
 	public void testEmptyDate() throws Exception {
 		purchase.setDate(null);
-		validator.validate(purchase);
+		final ValidationResult result = validator.validate(purchase);
+		assertThat(result.isValid(), equalTo(false));
+		assertThat(result.getErrors(), not(empty()));
 	}
 
-	@Test(expected = ValidationException.class)
+	@Test
 	public void testInvalidDate() throws Exception {
 		purchase.setDate(LocalDateTime.now().plusDays(1));
-		validator.validate(purchase);
+		final ValidationResult result = validator.validate(purchase);
+		assertThat(result.isValid(), equalTo(false));
+		assertThat(result.getErrors(), not(empty()));
 	}
 
-//	@Test(expected = ValidationException.class)
+//	@Test
 //	public void testNullItems() throws Exception {
 //		purchase.setItems(null);
 //		validator.validate(purchase);
 //	}
 //
-//	@Test(expected = ValidationException.class)
+//	@Test
 //	public void testEmptyItems() throws Exception {
 //		purchase.setItems(new ArrayList<PurchaseItem>());
 //		validator.validate(purchase);
@@ -101,27 +122,35 @@ public class ModelPurchaseValidationTest {
 	public void testEmptyItems() throws Exception {
 		purchase.setItems(new ArrayList<PurchaseItem>());
 		purchase.setTotalValue(BigDecimal.ZERO);
-		validator.validate(purchase);
+		final ValidationResult result = validator.validate(purchase);
+		assertThat(result.isValid(), equalTo(true));
+		assertThat(result.getErrors(), empty());
 	}
 
-	@Test(expected = ValidationException.class)
+	@Test
 	@Ignore("validação desativada")
 	public void testOverloadedItems() throws Exception {
 		purchase.setItems(Fixture.from(PurchaseItem.class).gimme(6, "g6play"));
 		purchase.setTotalValue(
 				purchase.getItems().stream().map(PurchaseItem::getValue).reduce(BigDecimal.ZERO, BigDecimal::add));
-		validator.validate(purchase);
+		final ValidationResult result = validator.validate(purchase);
+		assertThat(result.isValid(), equalTo(false));
+		assertThat(result.getErrors(), not(empty()));
 	}
 
-	@Test(expected = ValidationException.class)
+	@Test
 	public void testEmptyTotalValue() throws Exception {
 		purchase.setTotalValue(null);
-		validator.validate(purchase);
+		final ValidationResult result = validator.validate(purchase);
+		assertThat(result.isValid(), equalTo(false));
+		assertThat(result.getErrors(), not(empty()));
 	}
 
-	@Test(expected = ValidationException.class)
+	@Test
 	public void testInvalidTotalValue() throws Exception {
 		purchase.setTotalValue(new BigDecimal(1.0));
-		validator.validate(purchase);
+		final ValidationResult result = validator.validate(purchase);
+		assertThat(result.isValid(), equalTo(false));
+		assertThat(result.getErrors(), not(empty()));
 	}
 }

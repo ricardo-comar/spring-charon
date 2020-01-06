@@ -23,11 +23,6 @@
 * https://www.baeldung.com/spring-kafka
 * https://docs.spring.io/spring-kafka/reference/html/#kafka
 * https://dzone.com/articles/20-best-practices-for-working-with-apache-kafka-at
-* https://www.baeldung.com/java-concurrent-locks
-* https://cloud.spring.io/spring-cloud-netflix/multi/multi__router_and_filter_zuul.html
-* https://www.baeldung.com/spring-cloud-netflix-eureka
-* https://www.baeldung.com/zuul-load-balancing
-* https://www.treinaweb.com.br/blog/documentando-uma-api-spring-boot-com-o-swagger/
 * http://dev.splunk.com/view/splunk-logging-java/SP-CAAAE3R
 * https://github.com/simplesteph/kafka-stack-docker-compose
 * https://www.confluent.io/blog/schema-registry-avro-in-spring-boot-application-tutorial
@@ -39,6 +34,7 @@
 
 * https://medium.com/@felipedutratine/kafka-ordering-guarantees-99320db8f87f
 * https://github.com/christian-posta/spring-integration-samples
+* https://dzone.com/articles/message-processing-spring
 
 
 ## Backlog

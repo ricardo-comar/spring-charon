@@ -21,21 +21,19 @@ public class PurchaseAvroFixture implements TemplateLoader {
 				add("transaction", "TRANPURC-1");
 				add("id", "purc-10");
 				add("customer", "Lala Silva");
-				add("totalValue", new BigDecimal(500.00 + 3900.00 + 11500.00).setScale(2, RoundingMode.HALF_EVEN));
+				add("syncTransaction", "AA");
+				add("syncSequence", "10");
+				add("syncKey", "AAA-123");
+			    add("totalValue", new BigDecimal(500.00 + 3900.00 + 11500.00).setScale(2, RoundingMode.HALF_EVEN));
 				add("status", PurchaseAvroStatus.OPEN);
 				add("date", LocalDateTimeFixture.LDF_10_DAYS_PAST.format(LocalDateTimeFixture.TIME_FORMATTER));
 				add("items", has(3).of(PurchaseItemAvro.class, "g6play", "iphone10", "iphone11pro"));
 			}
 		});
-		Fixture.of(PurchaseAvro.class).addTemplate("over6", new Rule() {
+		Fixture.of(PurchaseAvro.class).addTemplate("over6").inherits("valid", new Rule() {
 			{
-				add("transaction", "TRANPURC-1");
-				add("id", "purc-10");
-				add("customer", "Lala Silva");
 				add("totalValue",
 						new BigDecimal((500.00 + 3900.00 + 11500.00) * 2.0).setScale(2, RoundingMode.HALF_EVEN));
-				add("status", PurchaseAvroStatus.OPEN);
-				add("date", LocalDateTimeFixture.LDF_10_DAYS_PAST.format(LocalDateTimeFixture.TIME_FORMATTER));
 				add("items", has(6).of(PurchaseItemAvro.class, "g6play", "iphone10", "iphone11pro"));
 			}
 		});

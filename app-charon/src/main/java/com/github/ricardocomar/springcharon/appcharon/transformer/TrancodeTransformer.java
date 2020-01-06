@@ -53,9 +53,8 @@ public class TrancodeTransformer {
 		marshMap.put(modelClass, factory.createMarshaller(transaction));
 	}
 
-	public ConsumerModel fromTrancode(final String input) {
+	public ConsumerModel fromTrancode(final String transaction, final String input) {
 		LOGGER.debug("Transforming trancode into bean: {}", input);
-		final String transaction = input.substring(0, 10);
 		if (!unmarshMap.containsKey(transaction)) {
 			throw new ETLTransformerException("Unexpected transaction " + transaction);
 		}

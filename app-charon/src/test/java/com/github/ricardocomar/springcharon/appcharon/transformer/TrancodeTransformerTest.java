@@ -39,7 +39,7 @@ public class TrancodeTransformerTest {
 		final String trancode = transformer.to(purchase);
 		assertThat(trancode, not(isEmptyOrNullString()));
 
-		final ConsumerModel newModel = transformer.fromTrancode(trancode);
+		final ConsumerModel newModel = transformer.fromTrancode(purchase.getTransaction(), trancode);
 
 		assertThat(newModel, equalTo(purchase));
 	}

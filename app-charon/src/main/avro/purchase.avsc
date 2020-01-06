@@ -5,6 +5,7 @@
   "fields": [
     {"name": "syncTransaction", "type": "string", "avro.java.string": "String"},
     {"name": "syncSequence", "type": "string", "avro.java.string": "String"},
+    {"name": "syncKey", "type": "string", "avro.java.string": "String"},
     {"name": "transaction", "type": "string", "avro.java.string": "String"},
     {"name": "id", "type": "string", "avro.java.string": "String"},
     {"name": "customer", "type": "string", "avro.java.string": "String"},

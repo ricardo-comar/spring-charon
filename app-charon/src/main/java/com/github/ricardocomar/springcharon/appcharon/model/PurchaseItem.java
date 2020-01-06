@@ -10,7 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Record
+@Record(minLength = 50)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

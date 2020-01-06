@@ -3,6 +3,7 @@ package com.github.ricardocomar.springcharon.appcharon.transformer.handler;
 import java.math.BigDecimal;
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.beanio.types.ConfigurableTypeHandler;
 import org.beanio.types.TypeHandler;
 
@@ -18,6 +19,9 @@ public class BigDecimalPositionalTypeHandler implements TypeHandler, Configurabl
 
 	@Override
 	public Object parse(final String text) {
+		if (StringUtils.isEmpty(text)) {
+			return null;
+		}
 		if (text.length() > precision) {
 			throw new IllegalArgumentException(
 					text + " length (" + text.length() + ") is greater than configured precision " + precision);
@@ -27,6 +31,10 @@ public class BigDecimalPositionalTypeHandler implements TypeHandler, Configurabl
 
 	@Override
 	public String format(final Object input) {
+		if (input == null) {
+			return null;
+		}
+
 		final BigDecimal value = (BigDecimal) input;
 		if (value.precision() > precision) {
 			throw new IllegalArgumentException(
