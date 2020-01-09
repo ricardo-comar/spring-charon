@@ -11,23 +11,27 @@ import org.springframework.integration.annotation.Transformer;
 import org.springframework.integration.transformer.HeaderEnricher;
 import org.springframework.integration.transformer.support.ExpressionEvaluatingHeaderValueMessageProcessor;
 import org.springframework.integration.transformer.support.HeaderValueMessageProcessor;
+import org.springframework.integration.transformer.support.StaticHeaderValueMessageProcessor;
 
 import com.github.ricardocomar.springcharon.appcharon.config.SpringIntegrationConfig;
 
-@Configuration
-public class MQEnricherConfig {
+import br.com.fluentvalidator.context.ValidationResult;
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(MQEnricherConfig.class);
+@Configuration
+public class MessageEnricherConfig {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(MessageEnricherConfig.class);
 
 	@Bean
-	@Transformer(inputChannel = "jmsPurchaseEnricherChannel", outputChannel = "jmsPurchaseSequenceChannel")
-	public HeaderEnricher jmsPurchaseEnricher() {
+	@Transformer(inputChannel = "inboundPurchaseChannel", outputChannel = "inboundPurchaseFilterChannel")
+	public HeaderEnricher inboundPurchaseEnricher() {
 
 		final Map<String, HeaderValueMessageProcessor<?>> headersMap = new HashMap<>();
-		headersMap.put(SpringIntegrationConfig.X_MSG_HEADER_SYNC_ID,
-				new ExpressionEvaluatingHeaderValueMessageProcessor<>("headers['X-Sync-id']", String.class));
-		headersMap.put(SpringIntegrationConfig.X_MSG_HEADER_SYNC_SEQUENCE,
-				new ExpressionEvaluatingHeaderValueMessageProcessor<>("headers['X-Sync-Sequence']", Integer.class));
+		headersMap.put(SpringIntegrationConfig.X_MSG_HEADER_INBOUND_TYPE,
+				new StaticHeaderValueMessageProcessor<>("TRANPURC-1"));
+		headersMap.put(SpringIntegrationConfig.X_MSG_HEADER_INBOUND_VALIDATION,
+				new ExpressionEvaluatingHeaderValueMessageProcessor<>("@validatorMQPurchase.validate(payload)",
+						ValidationResult.class));
 		LOGGER.info("Message will be enriched with incomming type and validation result: {}", headersMap);
 
 		return new HeaderEnricher(headersMap);

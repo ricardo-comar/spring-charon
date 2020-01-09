@@ -15,19 +15,19 @@ import org.springframework.integration.transformer.support.HeaderValueMessagePro
 import com.github.ricardocomar.springcharon.appcharon.config.SpringIntegrationConfig;
 
 @Configuration
-public class MQEnricherConfig {
+public class MQRetryEnricherConfig {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(MQEnricherConfig.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MQRetryEnricherConfig.class);
 
 	@Bean
-	@Transformer(inputChannel = "jmsPurchaseEnricherChannel", outputChannel = "jmsPurchaseSequenceChannel")
-	public HeaderEnricher jmsPurchaseEnricher() {
+	@Transformer(inputChannel = "jmsRetryEnricherChannel", outputChannel = "jmsRetryOutboundChannel")
+	public HeaderEnricher jmsRetryEnricher() {
 
 		final Map<String, HeaderValueMessageProcessor<?>> headersMap = new HashMap<>();
-		headersMap.put(SpringIntegrationConfig.X_MSG_HEADER_SYNC_ID,
-				new ExpressionEvaluatingHeaderValueMessageProcessor<>("headers['X-Sync-id']", String.class));
-		headersMap.put(SpringIntegrationConfig.X_MSG_HEADER_SYNC_SEQUENCE,
-				new ExpressionEvaluatingHeaderValueMessageProcessor<>("headers['X-Sync-Sequence']", Integer.class));
+		headersMap.put(SpringIntegrationConfig.X_MSG_HEADER_SYNC_RETRY_COUNT,
+				new ExpressionEvaluatingHeaderValueMessageProcessor<>(
+						"headers['" + SpringIntegrationConfig.X_MSG_HEADER_SYNC_RETRY_COUNT + "']?:0 + 1",
+						Integer.class));
 		LOGGER.info("Message will be enriched with incomming type and validation result: {}", headersMap);
 
 		return new HeaderEnricher(headersMap);

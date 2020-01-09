@@ -50,6 +50,7 @@ public class EventUpdateNotifier {
 			@Override
 			public Message postProcessMessage(final Message message) throws JMSException {
 				message.setStringProperty(AppProperties.HEADER_SYNC_ID, syncId);
+				message.setIntProperty(AppProperties.HEADER_SYNC_SEQUENCE, syncSeq);
 				return message;
 			}
 		});

@@ -7,7 +7,7 @@ import org.springframework.integration.annotation.Router;
 import org.springframework.messaging.Message;
 
 import com.github.ricardocomar.springcharon.appcharon.config.SpringIntegrationConfig;
-import com.github.ricardocomar.springcharon.model.PurchaseAvro;
+import com.github.ricardocomar.springcharon.appcharon.model.Purchase;
 
 @MessageEndpoint
 public class ModelRouterConfig {
@@ -15,7 +15,7 @@ public class ModelRouterConfig {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ModelRouterConfig.class);
 
 	@Router(inputChannel = "modelRouterChannel")
-	public String purchaseAvroEnricher(final Message<PurchaseAvro> msg) {
+	public String modelRouterChannel(final Message<Purchase> msg) {
 
 		final String inboundType = (String) msg.getHeaders().get(SpringIntegrationConfig.X_MSG_HEADER_INBOUND_TYPE);
 		switch (inboundType) {

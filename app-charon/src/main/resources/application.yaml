@@ -12,6 +12,10 @@ server:
 #  instance:
 #    appname: etl-consumer
 #    instance-id: etl-consumer-${random.value}
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
 
 
 management:
@@ -29,9 +33,9 @@ management:
 spring:
   jms:
     listener:
-      concurrency: 1
+      concurrency: 5
       max-concurrency: 10
-      acknowledge-mode: auto
+      acknowledge-mode: client
       
   main:
     banner-mode: "off"

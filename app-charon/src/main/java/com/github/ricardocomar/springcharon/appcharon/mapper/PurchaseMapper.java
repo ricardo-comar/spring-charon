@@ -13,10 +13,11 @@ public abstract class PurchaseMapper implements ConsumerAvroMapper<PurchaseAvro>
 
 	@Override
 	@Mappings({
-			@Mapping(target = "date", expression = "java(model.getDate().format(java.time.format.DateTimeFormatter.ofPattern(\"yyyyMMdd-HHmmssSSSSS\")))"),
-			@Mapping(target = "syncTransaction", constant = "AAA"),
-			@Mapping(target = "syncKey", constant = "AAA-123"),
-			@Mapping(target = "syncSequence", constant = "10") })
+			@Mapping(target = "date", expression = "java(model.getDate().format(java.time.format.DateTimeFormatter.ofPattern(\"yyyyMMdd-HHmmssSSSSS\")))")
+//			, @Mapping(target = "syncTransaction", constant = "AAA")
+//			, @Mapping(target = "syncKey", constant = "AAA-123")
+//			, @Mapping(target = "syncSequence", constant = "10") 
+	})
 	public abstract PurchaseAvro fromModel(Purchase model);
 
 	@InheritInverseConfiguration

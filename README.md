@@ -4,6 +4,8 @@
 
 
 
+-- Ack only on delivery success
+
 
 
 ## Release Notes
@@ -13,6 +15,18 @@
 # Study Case
 
 ## The Scenario
+
+* Flow
+(jmsPurchaseInboundChannel) -> jmsPurchaseFilterChannel
+jmsPurchaseFilterChannel -> modelTransformerChannel / jmsPurchaseDiscardEnricherChannel
+modelTransformerChannel -> modelEnricherChannel
+modelEnricherChannel -> modelFilterChannel
+modelFilterChannel -> modelRouterChannel / modelDiscardChannel
+modelRouterChannel ==> purchaseSequenceChannel
+purchaseSequenceChannel -> purchaseRouterChannel / purchaseReorderChannel
+purchaseRouterChannel ==> purchaseOutboundEnricherChannel
+purchaseOutboundEnricherChannel -> kafkaTransformerChannel
+kafkaTransformerChannel -> (kafkaOutboundChannel)
 
 
 ## References

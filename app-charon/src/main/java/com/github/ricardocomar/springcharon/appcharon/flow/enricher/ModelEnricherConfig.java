@@ -14,21 +14,22 @@ import org.springframework.integration.transformer.support.HeaderValueMessagePro
 
 import com.github.ricardocomar.springcharon.appcharon.config.SpringIntegrationConfig;
 
-@Configuration
-public class MQEnricherConfig {
+import br.com.fluentvalidator.context.ValidationResult;
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(MQEnricherConfig.class);
+@Configuration
+public class ModelEnricherConfig {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(ModelEnricherConfig.class);
 
 	@Bean
-	@Transformer(inputChannel = "jmsPurchaseEnricherChannel", outputChannel = "jmsPurchaseSequenceChannel")
-	public HeaderEnricher jmsPurchaseEnricher() {
+	@Transformer(inputChannel = "modelEnricherChannel", outputChannel = "modelFilterChannel")
+	public HeaderEnricher modelEnricher() {
 
 		final Map<String, HeaderValueMessageProcessor<?>> headersMap = new HashMap<>();
-		headersMap.put(SpringIntegrationConfig.X_MSG_HEADER_SYNC_ID,
-				new ExpressionEvaluatingHeaderValueMessageProcessor<>("headers['X-Sync-id']", String.class));
-		headersMap.put(SpringIntegrationConfig.X_MSG_HEADER_SYNC_SEQUENCE,
-				new ExpressionEvaluatingHeaderValueMessageProcessor<>("headers['X-Sync-Sequence']", Integer.class));
-		LOGGER.info("Message will be enriched with incomming type and validation result: {}", headersMap);
+		headersMap.put(SpringIntegrationConfig.X_MSG_HEADER_MODEL_VALIDATION,
+				new ExpressionEvaluatingHeaderValueMessageProcessor<>("@modelValidator.validate(payload)",
+						ValidationResult.class));
+		LOGGER.info("Message will be enriched with model validation result: {}", headersMap);
 
 		return new HeaderEnricher(headersMap);
 	}

@@ -6,7 +6,7 @@ import org.springframework.integration.annotation.MessageEndpoint;
 import org.springframework.integration.annotation.Router;
 import org.springframework.messaging.Message;
 
-import com.github.ricardocomar.springcharon.model.PurchaseAvro;
+import com.github.ricardocomar.springcharon.appcharon.model.Purchase;
 
 @MessageEndpoint
 public class PurchaseRouterConfig {
@@ -14,10 +14,10 @@ public class PurchaseRouterConfig {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PurchaseRouterConfig.class);
 
 	@Router(inputChannel = "purchaseRouterChannel")
-	public String purchaseAvroEnricher(final Message<PurchaseAvro> msg) {
+	public String purchaseRouterChannel(final Message<Purchase> msg) {
 
-		final String destination = "purchaseTransformerChannel";
-		LOGGER.info("Message will be routed to: ", destination);
+		final String destination = "purchaseOutboundEnricherChannel";// "purchaseTransformerChannel";
+		LOGGER.info("Message will be routed to: {}", destination);
 
 		return destination;
 	}

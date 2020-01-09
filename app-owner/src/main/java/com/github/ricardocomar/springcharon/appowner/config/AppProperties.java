@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class AppProperties {
 
 	public static final String HEADER_SYNC_ID = "X-Sync-id";
+	public static final String HEADER_SYNC_SEQUENCE = "X-Sync-Sequence";
 	public static final String HEADER_CORRELATION_ID = "X-Correlation-id";
 	public static final String PROP_CORRELATION_ID = "correlationId";
 

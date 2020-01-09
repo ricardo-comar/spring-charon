@@ -21,6 +21,10 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Purchase implements ConsumerMainModel {
 
+	private transient String syncTransaction;
+	private transient String syncKey;
+	private transient String syncSequence;
+
 	@Field(ordinal = 0, length = 10)
 	@Builder.Default
 	private String transaction = "TRANPURC-1";
