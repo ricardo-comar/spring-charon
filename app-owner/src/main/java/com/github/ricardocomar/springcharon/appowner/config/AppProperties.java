@@ -10,8 +10,10 @@ import lombok.NoArgsConstructor;
 @ConfigurationProperties(prefix = "etl-producer")
 public class AppProperties {
 
-	public static final String HEADER_SYNC_ID = "X-Sync-id";
+	public static final String HEADER_SYNC_ID = "X-Sync-Id";
+	public static final String HEADER_SYNC_DOMAIN = "X-Sync-Domain";
 	public static final String HEADER_SYNC_SEQUENCE = "X-Sync-Sequence";
+	public static final String HEADER_CHARON_TRANSACTION = "X-Charon-Transaction";
 	public static final String HEADER_CORRELATION_ID = "X-Correlation-id";
 	public static final String PROP_CORRELATION_ID = "correlationId";
 

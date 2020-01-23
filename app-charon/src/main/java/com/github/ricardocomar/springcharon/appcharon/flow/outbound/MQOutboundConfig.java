@@ -10,13 +10,14 @@ import org.springframework.jms.support.converter.MessagingMessageConverter;
 @Configuration
 public class MQOutboundConfig {
 
-	@Bean(destroyMethod = "destroy", name = "jmsRetryOutboundChannel")
+	@Bean(destroyMethod = "destroy")
+//	@InboundChannelAdapter(channel = CharonFlowConstants.FLOW_OUTBOUND_JMS_RETRY_CHANNEL)
 	public JmsChannelFactoryBean jmsRetryOutboundChannel(final ConnectionFactory jmsConnFactory) {
 		final JmsChannelFactoryBean factory = new JmsChannelFactoryBean(true);
 		factory.setMessageConverter(new MessagingMessageConverter());
 		factory.setConnectionFactory(jmsConnFactory);
 		factory.setSessionTransacted(true);
-		factory.setDestinationName("sync.purchase.retry");
+		factory.setDestinationName("sync.purchase.retry"); // TODO: Trocar por destinationResolver e headers
 		return factory;
 	}
 

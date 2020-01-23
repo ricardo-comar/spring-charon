@@ -10,6 +10,7 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.Header;
 
 import com.github.ricardocomar.springcharon.appcharon.config.SpringIntegrationConfig;
+import com.github.ricardocomar.springcharon.appcharon.flow.CharonFlowConstants;
 import com.github.ricardocomar.springcharon.appcharon.model.ConsumerModel;
 import com.github.ricardocomar.springcharon.appcharon.transformer.AvroTransformer;
 import com.github.ricardocomar.springcharon.appcharon.transformer.TrancodeTransformer;
@@ -25,7 +26,7 @@ public class TransformerConfig {
 	@Autowired 
 	private AvroTransformer avroTransformer;
 
-	@Transformer(inputChannel = "modelTransformerChannel", outputChannel = "modelEnricherChannel")
+	@Transformer(inputChannel = CharonFlowConstants.FLOW_6_MODEL_TRANSFORMER_CHANNEL, outputChannel = CharonFlowConstants.FLOW_7_MODEL_VALIDATION_CHANNEL)
 	public ConsumerModel modelTransformerChannel(final Message<String> msg,
 			@Header(SpringIntegrationConfig.X_MSG_HEADER_INBOUND_TYPE) final String transaction) {
 
@@ -37,7 +38,7 @@ public class TransformerConfig {
 	}
 
 //	@Transformer(inputChannel = "purchaseTransformerChannel", outputChannel = "purchaseEnricherChannel")
-	@Transformer(inputChannel = "kafkaTransformerChannel", outputChannel = "kafkaOutboundChannel")
+	@Transformer(inputChannel = CharonFlowConstants.FLOW_12_OUTBOUND_MIRROR_TRANSFORMER_CHANNEL, outputChannel = CharonFlowConstants.FLOW_OUTBOUND_KAFKA_CHANNEL)
 	public GenericRecord kafkaTransformerChannel(final ConsumerModel model) {
 
 		LOGGER.info("Message from type \"{}\" will be transformed to Avro", model.getClass().getSimpleName());

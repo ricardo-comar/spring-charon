@@ -1,7 +1,10 @@
-package com.github.ricardocomar.springcharon.appcharon.flow.filter;
+package com.github.ricardocomar.springcharon.appcharon.flow.service;
+
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.Filter;
@@ -10,36 +13,50 @@ import org.springframework.integration.handler.LoggingHandler;
 import org.springframework.messaging.Message;
 
 import com.github.ricardocomar.springcharon.appcharon.config.SpringIntegrationConfig;
-import com.github.ricardocomar.springcharon.appcharon.model.ConsumerModel;
+import com.github.ricardocomar.springcharon.appcharon.flow.CharonFlowConstants;
+import com.github.ricardocomar.springcharon.appcharon.sync.SyncControlService;
+import com.github.ricardocomar.springcharon.appcharon.sync.repository.entity.SyncControlEntity;
+import com.github.ricardocomar.springcharon.appcharon.sync.repository.entity.SyncControlEntity.SyncState;
 
 @Configuration
-public class DiscardFilterConfig {
+public class DiscardServiceConfig {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(DiscardFilterConfig.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DiscardServiceConfig.class);
 
-	@Filter(inputChannel = "jmsRetryDiscardChannel", outputChannel = "discardChannel")
-	public boolean jmsRetryDiscardChannel(final Message<String> msg) {
+	@Autowired
+	private SyncControlService service;
 
-		LOGGER.warn("Too many retries, will be discarded: {}", msg);
-		return true;
-	}
-
-	@Filter(inputChannel = "messageDiscardChannel", outputChannel = "discardChannel")
-	public boolean jmsMessageDiscardChannel(final Message<String> msg) {
+	@SuppressWarnings("unchecked")
+	@Filter(inputChannel = CharonFlowConstants.FLOW_SEQ_BREAKER_CHANNEL, outputChannel = CharonFlowConstants.FLOW_OUTBOUND_SEQ_BREAK_NOTIFICATION, discardChannel = CharonFlowConstants.FLOW_DISCARD_CHANNEL)
+	public boolean sequenceBreakerFilter(final Message<String> msg) {
 
 		LOGGER.warn("Message will be discarded: {}", msg);
-		return true;
+		final String domain = (String) msg.getHeaders().get(SpringIntegrationConfig.X_MSG_HEADER_INBOUND_TYPE);
+		final Integer syncSequence = (Integer) msg.getHeaders().get(SpringIntegrationConfig.X_MSG_HEADER_SYNC_SEQUENCE);
+		final Optional<SyncControlEntity> controlOpt = (Optional<SyncControlEntity>) msg.getHeaders()
+				.get(SpringIntegrationConfig.X_MSG_HEADER_SYNC_CONTROL);
+
+		final SyncState state = SyncState.OK.equals( //
+				controlOpt.orElse(SyncControlEntity.builder().state(SyncState.OK).build()).getState())
+						? SyncState.INVALID
+						: SyncState.DISCARDED;
+
+		service.updateControl(domain, syncSequence, state.name());
+
+		return SyncState.INVALID.equals(state);
 	}
 
-	@Filter(inputChannel = "modelDiscardChannel", outputChannel = "discardChannel")
-	public boolean modelDiscardChannel(final Message<ConsumerModel> msg) {
-
-		LOGGER.warn("Model will be discarded: {}", msg);
-		return true;
+	@Bean // TODO: trocar por criador da mensagem de notificação
+	@ServiceActivator(inputChannel = CharonFlowConstants.FLOW_OUTBOUND_SEQ_BREAK_NOTIFICATION)
+	public LoggingHandler jmsSequenceBreakNotificationChannel() {
+		final LoggingHandler adapter = new LoggingHandler(LoggingHandler.Level.WARN);
+		adapter.setLoggerName("CHARON_LOGGER");
+		adapter.setLogExpressionString("'Producer will be notified of sequence break:' + payload");
+		return adapter;
 	}
 
 	@Bean
-	@ServiceActivator(inputChannel = "discardChannel")
+	@ServiceActivator(inputChannel = CharonFlowConstants.FLOW_DISCARD_CHANNEL)
 	public LoggingHandler discardChannelBean() {
 		final LoggingHandler adapter = new LoggingHandler(LoggingHandler.Level.WARN);
 		adapter.setLoggerName("CHARON_LOGGER");

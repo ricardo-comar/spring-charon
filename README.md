@@ -3,6 +3,9 @@
 ## Data Sync between two applications using Spring Integration
 
 
+## ![Flow](img/flow-simple.png)
+* **Inbound Queue**: Connection to 
+
 
 -- Ack only on delivery success
 

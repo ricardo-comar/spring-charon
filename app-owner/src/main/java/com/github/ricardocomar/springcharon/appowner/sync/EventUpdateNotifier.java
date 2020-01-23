@@ -49,7 +49,9 @@ public class EventUpdateNotifier {
 		jmsTemplate.convertAndSend("sync.purchase", model.getPayload(), new MessagePostProcessor() {
 			@Override
 			public Message postProcessMessage(final Message message) throws JMSException {
+				message.setStringProperty(AppProperties.HEADER_CHARON_TRANSACTION, "TRANPURC-1");
 				message.setStringProperty(AppProperties.HEADER_SYNC_ID, syncId);
+				message.setStringProperty(AppProperties.HEADER_SYNC_DOMAIN, "Purchase");
 				message.setIntProperty(AppProperties.HEADER_SYNC_SEQUENCE, syncSeq);
 				return message;
 			}

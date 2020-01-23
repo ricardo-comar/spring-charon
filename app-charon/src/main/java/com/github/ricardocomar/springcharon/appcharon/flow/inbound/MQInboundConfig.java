@@ -11,6 +11,8 @@ import org.springframework.jms.listener.DefaultMessageListenerContainer;
 import org.springframework.jms.support.converter.MessagingMessageConverter;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import com.github.ricardocomar.springcharon.appcharon.flow.CharonFlowConstants;
+
 @Configuration
 public class MQInboundConfig {
 
@@ -18,14 +20,14 @@ public class MQInboundConfig {
 	public JmsMessageDrivenEndpoint jmsPurchaseInboundChannel(final ConnectionFactory jmsConnectionFactory,
 			final JmsTransactionManager jmsTransactionManager) {
 		return new JmsMessageDrivenEndpoint(container(jmsConnectionFactory, "sync.purchase", jmsTransactionManager),
-				listener("jmsPurchaseEnricherChannel"));
+				listener(CharonFlowConstants.FLOW_1_INBOUND_JMS_ENRICHER_CHANNEL));
 	}
 
 	@Bean
 	public JmsMessageDrivenEndpoint jmsPurchaseRetryInboundChannel(final ConnectionFactory jmsConnectionFactory,
 			final JmsTransactionManager jmsTransactionManager) {
 		return new JmsMessageDrivenEndpoint(container(jmsConnectionFactory, "sync.purchase.retry", jmsTransactionManager),
-				listener("jmsPurchaseEnricherChannel"));
+				listener(CharonFlowConstants.FLOW_1_INBOUND_JMS_ENRICHER_CHANNEL));
 	}
 
 	@Bean

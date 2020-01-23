@@ -1,5 +1,6 @@
 package com.github.ricardocomar.springcharon.appcharon.flow.enricher;
 
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,19 +13,25 @@ import org.springframework.integration.transformer.support.HeaderValueMessagePro
 
 import com.github.ricardocomar.springcharon.appcharon.config.SpringIntegrationConfig;
 import com.github.ricardocomar.springcharon.appcharon.flow.CharonFlowConstants;
+import com.github.ricardocomar.springcharon.appcharon.sync.repository.entity.SyncControlEntity.SyncState;
 
 import br.com.fluentvalidator.context.ValidationResult;
 
 @Configuration
-public class ModelValidatorEnricherConfig {
+public class SequenceEnricherConfig {
 
 	@Bean
-	@Transformer(inputChannel = CharonFlowConstants.FLOW_7_MODEL_VALIDATION_CHANNEL, outputChannel = CharonFlowConstants.FLOW_8_MODEL_FILTER_CHANNEL)
-	public HeaderEnricher modelValidatorEnricher() {
+	@Transformer(inputChannel = CharonFlowConstants.FLOW_3_INBOUND_UPDATE_SEQ_CHANNEL, outputChannel = CharonFlowConstants.FLOW_4_INBOUND_VALIDATOR_CHANNEL)
+	public HeaderEnricher updateSequenceEnricher() {
+
+		final String expression = MessageFormat.format(
+				"@syncControlService.updateControl(headers['{0}'], headers['{1}'], {2})",
+				SpringIntegrationConfig.X_MSG_HEADER_SYNC_DOMAIN, SpringIntegrationConfig.X_MSG_HEADER_SYNC_SEQUENCE,
+				SyncState.OK.name());
 
 		final Map<String, HeaderValueMessageProcessor<?>> headersMap = new HashMap<>();
-		headersMap.put(SpringIntegrationConfig.X_MSG_HEADER_MODEL_VALIDATION,
-				new ExpressionEvaluatingHeaderValueMessageProcessor<>("@modelValidator.validate(payload)",
+		headersMap.put(SpringIntegrationConfig.X_MSG_HEADER_SYNC_UPDATE_RESULT,
+				new ExpressionEvaluatingHeaderValueMessageProcessor<>(expression,
 						ValidationResult.class));
 
 		return new HeaderEnricher(headersMap);
