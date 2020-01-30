@@ -1,3 +1,17 @@
+app-owner:
+  instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  concurrent-processor:
+    wait-timeout: 10000
+  consumer:
+    container-factory:
+      concurrency: 25
+      properties:
+        pool-timeout: 30000
+  rest-template:
+    redirect:
+      read-timeout: 1000
+      connect-timeout: 500
+
 server:
   port: 8080
 

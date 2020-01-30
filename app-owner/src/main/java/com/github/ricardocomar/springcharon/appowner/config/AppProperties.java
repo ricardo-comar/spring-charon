@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@ConfigurationProperties(prefix = "etl-producer")
+@ConfigurationProperties(prefix = "app-owner")
 public class AppProperties {
 
 	public static final String HEADER_SYNC_ID = "X-Sync-Id";

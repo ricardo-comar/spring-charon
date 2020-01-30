@@ -31,15 +31,15 @@ public class SequenceRouterConfig {
 		final Integer retryCount = (Integer) msg.getHeaders()
 				.get(SpringIntegrationConfig.X_MSG_HEADER_SYNC_RETRY_COUNT);
 
-		if (retryCount > MAX_RETRY) {
+		if (Optional.ofNullable(retryCount).orElse(0) > MAX_RETRY) {
 			LOGGER.error(
 					"Message from domain \"{}\" and sequence \"{}\" was retried too many times ({}), will be discarded",
 					domain, syncSequence, retryCount);
 			return CharonFlowConstants.FLOW_SEQ_BREAKER_CHANNEL;
 		}
 
-		final Optional<SyncControlEntity> controlOpt = (Optional<SyncControlEntity>) msg.getHeaders()
-				.get(SpringIntegrationConfig.X_MSG_HEADER_SYNC_CONTROL);
+		final Optional<SyncControlEntity> controlOpt = Optional.ofNullable(
+				(SyncControlEntity) msg.getHeaders().get(SpringIntegrationConfig.X_MSG_HEADER_SYNC_CONTROL));
 		LOGGER.info("Latest SyncControl for domain ({}) found: {}", domain, controlOpt);
 
 		if (!controlOpt.isPresent()) {

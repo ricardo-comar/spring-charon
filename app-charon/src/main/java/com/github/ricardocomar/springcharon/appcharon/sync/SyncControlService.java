@@ -15,8 +15,8 @@ public class SyncControlService {
 	@Autowired
 	private SyncControlRepository repo;
 
-	public Optional<SyncControlEntity> getCurrentControl(final String domain) {
-		return repo.findById(domain);
+	public SyncControlEntity getCurrentControl(final Object domain) {
+		return repo.findById(Optional.ofNullable((String) domain).orElse(null)).orElse(null);
 	}
 
 	public Boolean updateControl(final String domain, final Integer sequence, final String state) {

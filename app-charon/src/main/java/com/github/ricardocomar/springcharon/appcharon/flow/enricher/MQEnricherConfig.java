@@ -27,9 +27,9 @@ public class MQEnricherConfig {
 				new ExpressionEvaluatingHeaderValueMessageProcessor<>("headers['X-Sync-Id']", String.class));
 		headersMap.put(SpringIntegrationConfig.X_MSG_HEADER_SYNC_DOMAIN,
 				new ExpressionEvaluatingHeaderValueMessageProcessor<>("headers['X-Sync-Domain']", String.class));
-//		headersMap.put(SpringIntegrationConfig.X_MSG_HEADER_SYNC_CONTROL,
-//				new ExpressionEvaluatingHeaderValueMessageProcessor<>(
-//						"@syncControlService.getCurrentControl(headers['X-Sync-Domain'])", String.class));
+		headersMap.put(SpringIntegrationConfig.X_MSG_HEADER_SYNC_CONTROL,
+				new ExpressionEvaluatingHeaderValueMessageProcessor<>(
+						"@syncControlService.getCurrentControl(headers['X-Sync-Domain'])", String.class));
 		headersMap.put(SpringIntegrationConfig.X_MSG_HEADER_SYNC_SEQUENCE,
 				new ExpressionEvaluatingHeaderValueMessageProcessor<>("headers['X-Sync-Sequence']", Integer.class));
 		
