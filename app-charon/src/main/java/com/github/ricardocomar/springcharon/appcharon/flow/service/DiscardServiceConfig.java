@@ -33,8 +33,8 @@ public class DiscardServiceConfig {
 		LOGGER.warn("Message will be discarded: {}", msg);
 		final String domain = (String) msg.getHeaders().get(SpringIntegrationConfig.X_MSG_HEADER_INBOUND_TYPE);
 		final Integer syncSequence = (Integer) msg.getHeaders().get(SpringIntegrationConfig.X_MSG_HEADER_SYNC_SEQUENCE);
-		final Optional<SyncControlEntity> controlOpt = (Optional<SyncControlEntity>) msg.getHeaders()
-				.get(SpringIntegrationConfig.X_MSG_HEADER_SYNC_CONTROL);
+		final Optional<SyncControlEntity> controlOpt = Optional.ofNullable(
+				(SyncControlEntity) msg.getHeaders().get(SpringIntegrationConfig.X_MSG_HEADER_SYNC_CONTROL));
 
 		final SyncState state = SyncState.OK.equals( //
 				controlOpt.orElse(SyncControlEntity.builder().state(SyncState.OK).build()).getState())

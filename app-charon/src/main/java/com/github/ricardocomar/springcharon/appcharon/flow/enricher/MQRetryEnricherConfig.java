@@ -36,10 +36,13 @@ public class MQRetryEnricherConfig {
 		final Map<String, HeaderValueMessageProcessor<?>> headersMap = new HashMap<>();
 		headersMap.put(SpringIntegrationConfig.X_MSG_HEADER_SYNC_RETRY_COUNT,
 				new ExpressionEvaluatingHeaderValueMessageProcessor<>(
-						"headers['" + SpringIntegrationConfig.X_MSG_HEADER_SYNC_RETRY_COUNT + "']?:0 + 1",
+						"@syncControlService.getRetryCount(headers['"
+								+ SpringIntegrationConfig.X_MSG_HEADER_SYNC_RETRY_COUNT + "'])",
 						Integer.class));
 
-		return new HeaderEnricher(headersMap);
+		final HeaderEnricher headerEnricher = new HeaderEnricher(headersMap);
+		headerEnricher.setDefaultOverwrite(true);
+		return headerEnricher;
 	}
 
 }
