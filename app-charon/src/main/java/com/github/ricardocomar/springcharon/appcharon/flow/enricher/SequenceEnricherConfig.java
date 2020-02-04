@@ -15,8 +15,6 @@ import com.github.ricardocomar.springcharon.appcharon.config.SpringIntegrationCo
 import com.github.ricardocomar.springcharon.appcharon.flow.CharonFlowConstants;
 import com.github.ricardocomar.springcharon.appcharon.sync.repository.entity.SyncControlEntity.SyncState;
 
-import br.com.fluentvalidator.context.ValidationResult;
-
 @Configuration
 public class SequenceEnricherConfig {
 
@@ -25,14 +23,14 @@ public class SequenceEnricherConfig {
 	public HeaderEnricher updateSequenceEnricher() {
 
 		final String expression = MessageFormat.format(
-				"@syncControlService.updateControl(headers['{0}'], headers['{1}'], {2})",
+				"@syncControlService.updateControl(headers[''{0}''], headers[''{1}''], ''{2}'')",
 				SpringIntegrationConfig.X_MSG_HEADER_SYNC_DOMAIN, SpringIntegrationConfig.X_MSG_HEADER_SYNC_SEQUENCE,
 				SyncState.OK.name());
 
 		final Map<String, HeaderValueMessageProcessor<?>> headersMap = new HashMap<>();
 		headersMap.put(SpringIntegrationConfig.X_MSG_HEADER_SYNC_UPDATE_RESULT,
 				new ExpressionEvaluatingHeaderValueMessageProcessor<>(expression,
-						ValidationResult.class));
+						Boolean.class));
 
 		return new HeaderEnricher(headersMap);
 	}

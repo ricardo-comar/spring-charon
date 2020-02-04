@@ -22,6 +22,15 @@ public class FlowRouterConfig {
 	public List<String> modelRouterChannel(final Message<Purchase> msg) {
 
 		final String inboundType = (String) msg.getHeaders().get(SpringIntegrationConfig.X_MSG_HEADER_INBOUND_TYPE);
+
+		final String syncTransaction = (String) msg.getHeaders().get(SpringIntegrationConfig.X_MSG_HEADER_INBOUND_TYPE);
+		final Integer syncSequence = (Integer) msg.getHeaders().get(SpringIntegrationConfig.X_MSG_HEADER_SYNC_SEQUENCE);
+		final String syncKey = (String) msg.getHeaders().get(SpringIntegrationConfig.X_MSG_HEADER_SYNC_ID);
+
+		msg.getPayload().setSyncTransaction(syncTransaction);
+		msg.getPayload().setSyncKey(syncKey);
+		msg.getPayload().setSyncSequence(syncSequence.toString());
+
 		switch (inboundType) {
 
 		case "TRANPURC-1":

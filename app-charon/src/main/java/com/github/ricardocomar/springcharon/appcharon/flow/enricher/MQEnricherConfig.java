@@ -12,6 +12,7 @@ import org.springframework.integration.transformer.support.HeaderValueMessagePro
 
 import com.github.ricardocomar.springcharon.appcharon.config.SpringIntegrationConfig;
 import com.github.ricardocomar.springcharon.appcharon.flow.CharonFlowConstants;
+import com.github.ricardocomar.springcharon.appcharon.sync.repository.entity.SyncControlEntity;
 
 @Configuration
 public class MQEnricherConfig {
@@ -29,7 +30,7 @@ public class MQEnricherConfig {
 				new ExpressionEvaluatingHeaderValueMessageProcessor<>("headers['X-Sync-Domain']", String.class));
 		headersMap.put(SpringIntegrationConfig.X_MSG_HEADER_SYNC_CONTROL,
 				new ExpressionEvaluatingHeaderValueMessageProcessor<>(
-						"@syncControlService.getCurrentControl(headers['X-Sync-Domain'])", String.class));
+						"@syncControlService.getCurrentControl(headers['X-Sync-Domain'])", SyncControlEntity.class));
 		headersMap.put(SpringIntegrationConfig.X_MSG_HEADER_SYNC_SEQUENCE,
 				new ExpressionEvaluatingHeaderValueMessageProcessor<>("headers['X-Sync-Sequence']", Integer.class));
 		
