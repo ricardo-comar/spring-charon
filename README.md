@@ -15,22 +15,6 @@
 
 * **2019-12-27**: First version, all working just fine, but documentation :smile: 
 
-# Study Case
-
-## The Scenario
-
-* Flow
-(jmsPurchaseInboundChannel) -> jmsPurchaseFilterChannel
-jmsPurchaseFilterChannel -> modelTransformerChannel / jmsPurchaseDiscardEnricherChannel
-modelTransformerChannel -> modelEnricherChannel
-modelEnricherChannel -> modelFilterChannel
-modelFilterChannel -> modelRouterChannel / modelDiscardChannel
-modelRouterChannel ==> purchaseSequenceChannel
-purchaseSequenceChannel -> purchaseRouterChannel / purchaseReorderChannel
-purchaseRouterChannel ==> purchaseOutboundEnricherChannel
-purchaseOutboundEnricherChannel -> kafkaTransformerChannel
-kafkaTransformerChannel -> (kafkaOutboundChannel)
-
 
 ## References
 

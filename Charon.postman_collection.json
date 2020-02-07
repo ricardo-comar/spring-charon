@@ -1,0 +1,93 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Charon",
+		"_postman_id": "10bb5038-4f98-80cf-47e7-1db1b0e1a0f7",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST Purchase",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// postman.setGlobalVariable('currentDate', new Date().toISOString());",
+							"var tzoffset = (new Date()).getTimezoneOffset() * 120000; //offset in milliseconds",
+							"var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);",
+							"",
+							"postman.setGlobalVariable('currentDate', localISOTime);",
+							"// toLocaleString(\"pt-BR\", {timeZone: \"America/Sao_Paulo\"})"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/purchase",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "X-Charon-Test",
+						"value": "test123",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"id\" : \"123\",\n\t\"customer\" : \"test2\",\n\t\"status\" : \"OPEN\",\n\t\"date\": \"{{currentDate}}\",\n\n\t\"waitMin\": 100,\n\t\"waitMax\": 300\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST Gateway",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// postman.setGlobalVariable('currentDate', new Date().toISOString());",
+							"var tzoffset = (new Date()).getTimezoneOffset() * 120000; //offset in milliseconds",
+							"var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);",
+							"",
+							"postman.setGlobalVariable('currentDate', localISOTime);",
+							"// toLocaleString(\"pt-BR\", {timeZone: \"America/Sao_Paulo\"})"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/localPostChannel",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/plain",
+						"description": ""
+					},
+					{
+						"key": "X-Charon-Test",
+						"value": "test123",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "TRANPURC-12           test2                         0         OPEN      20200206-12331802500"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
